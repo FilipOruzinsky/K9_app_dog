@@ -1,10 +1,12 @@
-package org.example;
+package org.example.User;
 
 
-import java.io.Console;
+import org.example.Interfaces.IUserLogin;
+import org.example.MyLogger;
+
 import java.util.Scanner;
 
-public class UserLogin implements IUserLogin{
+public class UserLogin implements IUserLogin {
 
 @Override
     public void runWithUserInput() {

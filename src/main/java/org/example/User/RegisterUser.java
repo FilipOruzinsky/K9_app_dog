@@ -1,8 +1,9 @@
-package org.example;
+package org.example.User;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.example.Interfaces.IRegisterUser;
 
 import java.io.File;
 import java.io.IOException;
@@ -10,7 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-public class RegisterUser implements IRegisterUser{
+public class RegisterUser implements IRegisterUser {
 
     private Map<String, User> registeredUsers;
     private ObjectMapper objectMapper;
@@ -58,14 +59,7 @@ public class RegisterUser implements IRegisterUser{
      saveUsersToJsonFile();
      return newUser;
 
-//        if (firstName.isEmpty() || lastName.isEmpty() || phoneNumber.isEmpty()) {
-//            logger.error("Registration failed: Required fields are missing.");
-//            return null;
-//        }
-//        User newUser = new User(firstName, lastName, address, state, phoneNumber, dogBreed);
-//        logger.info("Registration successful: New user created.");
-//
-//        return newUser;
+
 
     }
 

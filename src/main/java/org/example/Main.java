@@ -1,5 +1,9 @@
 package org.example;
 
+import org.example.User.RegisterUser;
+import org.example.User.User;
+import org.example.User.UserLogin;
+
 import java.util.Scanner;
 
 public class Main {
