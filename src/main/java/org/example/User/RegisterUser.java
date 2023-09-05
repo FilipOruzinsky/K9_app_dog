@@ -7,9 +7,9 @@ import org.example.Interfaces.IRegisterUser;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
+
+
 
 public class RegisterUser implements IRegisterUser {
 
@@ -25,8 +25,46 @@ public class RegisterUser implements IRegisterUser {
  @Override
     public User registerUser(){
         Scanner scanner = new Scanner(System.in);
+     Locale currentLocale = Locale.ENGLISH;
 
-        System.out.println("Please fill Registration Form");
+
+     ResourceBundle messagesEn = ResourceBundle.getBundle("messages", Locale.ENGLISH);
+     ResourceBundle messagesDe = ResourceBundle.getBundle("messages", Locale.GERMAN);
+     ResourceBundle messagesFr = ResourceBundle.getBundle("messages", Locale.FRENCH);
+
+     System.out.println("Choose your language:  ");
+     System.out.println("1. English");
+     System.out.println("2. German");
+     System.out.println("3. French");
+
+     int choice = scanner.nextInt();
+     switch (choice) {
+         case 1:
+             currentLocale = Locale.ENGLISH;
+             break;
+         case 2:
+             currentLocale = Locale.GERMAN;
+             break;
+         case 3:
+             currentLocale = Locale.FRENCH;
+             break;
+         default:
+             System.out.println("Invalid choice. Using default (English)...");
+
+
+     }
+     String pleaseFillRegisterForm;
+     if (currentLocale.equals(Locale.ENGLISH)) {
+         pleaseFillRegisterForm = messagesEn.getString("register1en");
+     } else if (currentLocale.equals(Locale.GERMAN)) {
+         pleaseFillRegisterForm = messagesDe.getString("register1de");
+     } else {
+         pleaseFillRegisterForm = messagesFr.getString("register1fr");
+     }
+
+     System.out.println(pleaseFillRegisterForm);
+
+
         System.out.print("Enter first name: ");
         String firstName = scanner.nextLine();
 
@@ -45,6 +83,8 @@ public class RegisterUser implements IRegisterUser {
         System.out.print("Enter dog breed: ");
         String dogBreed = scanner.nextLine();
 
+
+
         //tu som musel zavriet scanner aby po registracii mal user moznost loginu
 //        scanner.close();
      User newUser = new User(firstName,lastName,address,state,phoneNumber,dogBreed);
@@ -62,6 +102,7 @@ public class RegisterUser implements IRegisterUser {
 
 
     }
+
 
     private void saveUsersToJsonFile() {
         try {
