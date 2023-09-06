@@ -10,99 +10,78 @@ import java.io.IOException;
 import java.util.*;
 
 
-
 public class RegisterUser implements IRegisterUser {
+    private  Locale currentLocale;
 
+    private static final Logger logger = LogManager.getLogger(RegisterUser.class);
     private Map<String, User> registeredUsers;
     private ObjectMapper objectMapper;
 
-    public RegisterUser(){
+    public RegisterUser() {
         registeredUsers = new HashMap<>();
         objectMapper = new ObjectMapper();
     }
-    private static final Logger logger = LogManager.getLogger(RegisterUser.class);
 
- @Override
-    public User registerUser(){
+    @Override
+    public User registerUser() {
+
         Scanner scanner = new Scanner(System.in);
-     Locale currentLocale = Locale.ENGLISH;
 
+        System.out.println("Choose your language:  ");
+        System.out.println("1. English");
+        System.out.println("2. German");
+        System.out.println("3. French");
 
-     ResourceBundle messagesEn = ResourceBundle.getBundle("messages", Locale.ENGLISH);
-     ResourceBundle messagesDe = ResourceBundle.getBundle("messages", Locale.GERMAN);
-     ResourceBundle messagesFr = ResourceBundle.getBundle("messages", Locale.FRENCH);
+        int choice = scanner.nextInt();
+        switch (choice) {
+            case 1:
+                currentLocale = Locale.ENGLISH;
+                break;
+            case 2:
+                currentLocale = Locale.GERMAN;
+                break;
+            case 3:
+                currentLocale = Locale.FRENCH;
+                break;
+            default:
+                System.out.println("Invalid choice. Using default (English)...");
+                currentLocale = Locale.ENGLISH;
+        }
+        ResourceBundle formBundle = ResourceBundle.getBundle("messages",currentLocale);
+        scanner.nextLine();
 
-     System.out.println("Choose your language:  ");
-     System.out.println("1. English");
-     System.out.println("2. German");
-     System.out.println("3. French");
-
-     int choice = scanner.nextInt();
-     switch (choice) {
-         case 1:
-             currentLocale = Locale.ENGLISH;
-             break;
-         case 2:
-             currentLocale = Locale.GERMAN;
-             break;
-         case 3:
-             currentLocale = Locale.FRENCH;
-             break;
-         default:
-             System.out.println("Invalid choice. Using default (English)...");
-
-
-     }
-     String pleaseFillRegisterForm;
-     if (currentLocale.equals(Locale.ENGLISH)) {
-         pleaseFillRegisterForm = messagesEn.getString("register1en");
-     } else if (currentLocale.equals(Locale.GERMAN)) {
-         pleaseFillRegisterForm = messagesDe.getString("register1de");
-     } else {
-         pleaseFillRegisterForm = messagesFr.getString("register1fr");
-     }
-
-     System.out.println(pleaseFillRegisterForm);
-
-
-        System.out.print("Enter first name: ");
+        System.out.println(formBundle.getString("fill_registration_form"));
+        System.out.print(formBundle.getString("enter_first_name"));
         String firstName = scanner.nextLine();
 
-        System.out.print("Enter last name: ");
+        System.out.print(formBundle.getString("enter_last_name"));
         String lastName = scanner.nextLine();
 
-        System.out.print("Enter address: ");
+        System.out.print(formBundle.getString("enter_address"));
         String address = scanner.nextLine();
 
-        System.out.print("Enter state: ");
+        System.out.print(formBundle.getString("enter_state"));
         String state = scanner.nextLine();
 
-        System.out.print("Enter phone number: ");
+        System.out.print(formBundle.getString("enter_phone_number"));
         String phoneNumber = scanner.nextLine();
 
-        System.out.print("Enter dog breed: ");
+        System.out.print(formBundle.getString("enter_dog_breed"));
         String dogBreed = scanner.nextLine();
 
 
+        User newUser = new User(firstName, lastName, address, state, phoneNumber, dogBreed);
+        registeredUsers.put(newUser.getPhoneNumber(), newUser);
 
-        //tu som musel zavriet scanner aby po registracii mal user moznost loginu
-//        scanner.close();
-     User newUser = new User(firstName,lastName,address,state,phoneNumber,dogBreed);
-     registeredUsers.put(newUser.getPhoneNumber(),newUser);
+        if (firstName.isEmpty() || lastName.isEmpty() || phoneNumber.isEmpty()) {
+            logger.error("Registration failed: Required fields are missing.");
+            return null;
+        } else
+            logger.info("Registration successful: New user created.");
 
-     if (firstName.isEmpty() || lastName.isEmpty() || phoneNumber.isEmpty()) {
-         logger.error("Registration failed: Required fields are missing.");
-         return null;
-     }else
-         logger.info("Registration successful: New user created.");
-
-     saveUsersToJsonFile();
-     return newUser;
-
-
-
+        saveUsersToJsonFile();
+        return newUser;
     }
-
 
     private void saveUsersToJsonFile() {
         try {
@@ -113,6 +92,10 @@ public class RegisterUser implements IRegisterUser {
             System.out.println("Error saving users to JSON file: " + e.getMessage());
         }
     }
+}
 
-    }
+
+
+
+
 
