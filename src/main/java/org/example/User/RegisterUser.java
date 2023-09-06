@@ -1,5 +1,6 @@
 package org.example.User;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -23,7 +24,7 @@ public class RegisterUser implements IRegisterUser {
     }
 
     @Override
-    public User registerUser() {
+    public User registerUser() throws IOException {
 
         Scanner scanner = new Scanner(System.in);
 
@@ -65,6 +66,11 @@ public class RegisterUser implements IRegisterUser {
 
         System.out.print(formBundle.getString("enter_phone_number"));
         String phoneNumber = scanner.nextLine();
+        // check if phone number exist if yes user canot register because phone number is uniqe
+        if (isPhoneNumberAlreadyRegistered(phoneNumber)) {
+            System.out.println(formBundle.getString("phone_number_already_exists"));
+            return null; // Registration failed
+        }
 
         System.out.print(formBundle.getString("enter_dog_breed"));
         String dogBreed = scanner.nextLine();
@@ -83,15 +89,42 @@ public class RegisterUser implements IRegisterUser {
         return newUser;
     }
 
+
     private void saveUsersToJsonFile() {
         try {
             String filePath = "/home/fo/IdeaProjects/k9_app/src/main/java/org/example/users.json"; // Specify the desired directory path
-            objectMapper.writeValue(new File(filePath), registeredUsers);
-            System.out.println("Users saved to JSON file.");
+            List<User>existingUsers = readUsersFromJsonFile(filePath);
+            existingUsers.addAll(new ArrayList<>(registeredUsers.values()));
+               objectMapper.writeValue(new File(filePath),existingUsers);
+            System.out.println("User saved to JSON file.");
         } catch (IOException e) {
             System.out.println("Error saving users to JSON file: " + e.getMessage());
         }
     }
+    private List<User> readUsersFromJsonFile(String filePath) throws IOException {
+        List<User> existingUsers = new ArrayList<>();
+
+        File file = new File(filePath);
+        if (file.exists()) {
+            existingUsers = objectMapper.readValue(file, new TypeReference<List<User>>() {});
+        }
+
+        return existingUsers;
+    }
+
+    private boolean isPhoneNumberAlreadyRegistered(String phoneNumber) throws IOException {
+        List<User> existingUsers = readUsersFromJsonFile("/home/fo/IdeaProjects/k9_app/src/main/java/org/example/users.json");
+
+        for (User user : existingUsers) {
+            if (user.getPhoneNumber().equals(phoneNumber)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+
 }
 
 

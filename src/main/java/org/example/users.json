@@ -1,1 +1,19 @@
-{"dsds":{"firstName":"blzej","lastName":"sdsd","address":"dsds","state":"dsds","phoneNumber":"dsds","dogBreed":"dsds"}}
+[
+  {
+    "firstName": "nn",
+    "lastName": "nn",
+    "address": "nn",
+    "state": "nn",
+    "phoneNumber": "nn",
+    "dogBreed": "nn"
+  },
+  {
+    "firstName": "bb",
+    "lastName": "bb",
+    "address": "bb",
+    "state": "bb",
+    "phoneNumber": "bb",
+    "dogBreed": "bb"
+  }
+
+]

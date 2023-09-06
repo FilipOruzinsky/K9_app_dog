@@ -4,6 +4,9 @@ public class User {
     public String getFirstName() {
         return firstName;
     }
+    public User() {
+        // You can initialize default values or leave it empty
+    }
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;

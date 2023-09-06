@@ -4,12 +4,13 @@ import org.example.User.RegisterUser;
 import org.example.User.User;
 import org.example.User.UserLogin;
 
+import java.io.IOException;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
 //        Scanner scanner2 = new Scanner(System.in);
 //        Locale currentLocale = Locale.ENGLISH;
