@@ -1,52 +1,22 @@
 package org.example;
 
-import org.example.User.RegisterUser;
-import org.example.User.User;
-import org.example.User.UserLogin;
+import org.example.user.Admin;
+import org.example.user.RegisterUser;
+import org.example.user.User;
+import org.example.user.UserLogin;
 
 import java.io.IOException;
-import java.util.Locale;
-import java.util.ResourceBundle;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws IOException {
 
-//        Scanner scanner2 = new Scanner(System.in);
-//        Locale currentLocale = Locale.ENGLISH;
-//        ResourceBundle messages = ResourceBundle.getBundle("messages", currentLocale);
-//        System.out.println("Choose your language:  ");
-//        System.out.println("1. English");
-//        System.out.println("2. German");
-//        System.out.println("3. French");
-//        System.out.println("4. Russian");
-//        int choice = scanner2.nextInt();
-//
-//        switch (choice) {
-//            case 1:
-//                currentLocale = Locale.ENGLISH;
-//                break;
-//            case 2:
-//                currentLocale = Locale.GERMAN;
-//                break;
-//            case 3:
-//                currentLocale = Locale.FRENCH;
-//                break;
-//            case 4:
-//                currentLocale = new Locale("ru", "RU");
-//                break;
-//            default:
-//                System.out.println("Invalid choice. Using default (English)...");
-//        }
-//        messages = ResourceBundle.getBundle("messages", currentLocale);
-//        String greeting = messages.getString("greeting");
-//        System.out.println(greeting);
-//
-//        scanner2.close();
-//    }
-//}
+        Admin admin = new Admin();
+        String phoneNumberToDelete = "bb";
+        admin.deleteUserByPhoneNumber(phoneNumberToDelete);
 
-// toto je fungujuci stary kod madafaka
+
+
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("Welcome into app");

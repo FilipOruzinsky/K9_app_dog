@@ -1,4 +1,4 @@
-package org.example.Interfaces;
+package org.example.interfaces;
 
 public interface IUserLogin {
     boolean isValidCredentials (String username,String password);

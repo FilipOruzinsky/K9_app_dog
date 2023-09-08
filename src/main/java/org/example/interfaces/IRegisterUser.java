@@ -1,6 +1,6 @@
-package org.example.Interfaces;
+package org.example.interfaces;
 
-import org.example.User.User;
+import org.example.user.User;
 
 import java.io.IOException;
 

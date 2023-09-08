@@ -1,7 +1,7 @@
-package org.example.User;
+package org.example.user;
 
 
-import org.example.Interfaces.IUserLogin;
+import org.example.interfaces.IUserLogin;
 import org.example.MyLogger;
 
 import java.util.Scanner;

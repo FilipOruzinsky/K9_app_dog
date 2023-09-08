@@ -1,10 +1,10 @@
-package org.example.User;
+package org.example.user;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.example.Interfaces.IRegisterUser;
+import org.example.interfaces.IRegisterUser;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,7 +16,7 @@ public class RegisterUser implements IRegisterUser {
 
     private static final Logger logger = LogManager.getLogger(RegisterUser.class);
     private Map<String, User> registeredUsers;
-    private ObjectMapper objectMapper;
+    public ObjectMapper objectMapper;
 
     public RegisterUser() {
         registeredUsers = new HashMap<>();
@@ -90,7 +90,7 @@ public class RegisterUser implements IRegisterUser {
     }
 
 
-    private void saveUsersToJsonFile() {
+    public void saveUsersToJsonFile() {
         try {
             String filePath = "/home/fo/IdeaProjects/k9_app/src/main/java/org/example/users.json"; // Specify the desired directory path
             List<User>existingUsers = readUsersFromJsonFile(filePath);
@@ -101,7 +101,7 @@ public class RegisterUser implements IRegisterUser {
             System.out.println("Error saving users to JSON file: " + e.getMessage());
         }
     }
-    private List<User> readUsersFromJsonFile(String filePath) throws IOException {
+    public List<User> readUsersFromJsonFile(String filePath) throws IOException {
         List<User> existingUsers = new ArrayList<>();
 
         File file = new File(filePath);
@@ -122,6 +122,8 @@ public class RegisterUser implements IRegisterUser {
         }
         return false;
     }
+
+
 
 
 

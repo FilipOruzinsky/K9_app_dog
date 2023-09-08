@@ -6,14 +6,5 @@
     "state": "nn",
     "phoneNumber": "nn",
     "dogBreed": "nn"
-  },
-  {
-    "firstName": "bb",
-    "lastName": "bb",
-    "address": "bb",
-    "state": "bb",
-    "phoneNumber": "bb",
-    "dogBreed": "bb"
   }
-
 ]
