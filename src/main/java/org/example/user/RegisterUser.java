@@ -230,6 +230,18 @@ public class RegisterUser implements IRegisterUser {
         }
         return false;
     }
+    public User getUserByName(String filePath, String firstName) throws IOException {
+        RegisterUser registerUser = new RegisterUser();
+        List<User> existingUsers = registerUser.readUsersFromJsonFile(filePath);
+
+        for (User user : existingUsers) {
+            if (user.getFirstName().equalsIgnoreCase(firstName)) {
+                return user; // Found a user with the matching name (case-insensitive)
+            }
+        }
+
+        return null; // User not found
+    }
 
 
 

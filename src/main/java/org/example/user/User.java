@@ -66,6 +66,7 @@ public class User {
         this.password = password;
     }
 
+
     private String phoneNumber;
     private String dogBreed;
 
@@ -78,4 +79,5 @@ public class User {
         this.phoneNumber = phoneNumber;
         this.dogBreed = dogBreed;
     }
+
 }
