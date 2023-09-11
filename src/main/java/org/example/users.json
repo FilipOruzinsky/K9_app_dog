@@ -2,9 +2,19 @@
   {
     "firstName": "nn",
     "lastName": "nn",
+    "password": null,
     "address": "nn",
     "state": "nn",
     "phoneNumber": "nn",
     "dogBreed": "nn"
+  },
+  {
+    "firstName": "ll",
+    "lastName": "ll",
+    "password": "ll",
+    "address": "janosikova 5",
+    "state": "ll",
+    "phoneNumber": "lll",
+    "dogBreed": "ll"
   }
 ]

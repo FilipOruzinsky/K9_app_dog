@@ -54,14 +54,25 @@ public class User {
 
     private String firstName;
     private String lastName;
+    private String password;
     private String address;
     private String state;
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     private String phoneNumber;
     private String dogBreed;
 
-    public User(String firstName, String lastName, String address, String state, String phoneNumber, String dogBreed) {
+    public User(String firstName, String lastName,String password, String address, String state, String phoneNumber, String dogBreed) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.password = password;
         this.address = address;
         this.state = state;
         this.phoneNumber = phoneNumber;

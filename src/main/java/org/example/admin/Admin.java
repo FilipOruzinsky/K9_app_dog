@@ -1,6 +1,7 @@
-package org.example.user;
+package org.example.admin;
 
 import org.example.interfaces.IDeleteUser;
+import org.example.user.RegisterUser;
 import org.example.user.User;
 
 import java.io.File;
