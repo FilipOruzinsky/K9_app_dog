@@ -18,38 +18,25 @@ public class RegisterUser implements IRegisterUser {
     private Map<String, User> registeredUsers;
     public ObjectMapper objectMapper;
 
-    public RegisterUser() {
+    public RegisterUser(Locale currentLocale) {
+        this.currentLocale = currentLocale;
         registeredUsers = new HashMap<>();
         objectMapper = new ObjectMapper();
+    }
+
+    public RegisterUser() {
+
     }
 
     @Override
     public User registerUser() throws IOException {
 
         Scanner scanner = new Scanner(System.in);
+        System.out.println("ttttttttttttttttttttttttttttt");
 
-        System.out.println("Choose your language:  ");
-        System.out.println("1. English");
-        System.out.println("2. German");
-        System.out.println("3. French");
 
-        int choice = scanner.nextInt();
-        switch (choice) {
-            case 1:
-                currentLocale = Locale.ENGLISH;
-                break;
-            case 2:
-                currentLocale = Locale.GERMAN;
-                break;
-            case 3:
-                currentLocale = Locale.FRENCH;
-                break;
-            default:
-                System.out.println("Invalid choice. Using default (English)...");
-                currentLocale = Locale.ENGLISH;
-        }
         ResourceBundle formBundle = ResourceBundle.getBundle("messages", currentLocale);
-        scanner.nextLine();
+
 
         System.out.println(formBundle.getString("fill_registration_form"));
         System.out.print(formBundle.getString("enter_first_name"));

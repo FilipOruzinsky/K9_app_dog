@@ -5,6 +5,8 @@ import org.example.user.User;
 import org.example.user.UserLogin;
 
 import java.io.IOException;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import java.util.Scanner;
 
 public class Main {
@@ -13,20 +15,26 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Welcome into app");
 
-        while (true) {
-            System.out.println("Choose an option");
-            System.out.println("1.Register");
-            System.out.println("2.Login");
-            System.out.println("3.Exit");
 
-            System.out.println("Enter your choice: ");
+        Locale currentLocale = selectLanguage(scanner);
+        ResourceBundle formBundle = ResourceBundle.getBundle("messages", currentLocale);
+
+        while (true) {
+            System.out.println(formBundle.getString("menu.choose.option")); // Choose an option
+
+            System.out.println(formBundle.getString("menu.option.register"));
+            System.out.println(formBundle.getString("menu.option.login"));
+            System.out.println(formBundle.getString("menu.option.exit"));
+
+//            System.out.println(formBundle.getString("menu.enter.choice")); // Prompt for choice
             int choice = scanner.nextInt();
             scanner.nextLine();
 
             switch (choice) {
                 case 1:
-                    RegisterUser registerUser = new RegisterUser();
+                    RegisterUser registerUser = new RegisterUser(currentLocale);
                     User newUser = registerUser.registerUser();
+
 
                     if (newUser != null) {
 
@@ -65,7 +73,7 @@ public class Main {
             }
             System.out.println("Do you want to continue? (yes/no): ");
             String continueChoice = scanner.nextLine().trim().toLowerCase();
-            if (!continueChoice.equals("yes")){
+            if (!continueChoice.equals("yes")) {
                 System.out.println("Exiting the application.Goodbye!");
                 scanner.close();
                 System.exit(0);
@@ -74,7 +82,30 @@ public class Main {
         }
     }
 
+    //dovoli userovi vybrat jazik uplne na zaciatku
+    private static Locale selectLanguage(Scanner scanner) {
+        System.out.println("Choose your language: ");
+        System.out.println("1. English");
+        System.out.println("2. German");
+        System.out.println("3. French");
 
+        int languageChoice = scanner.nextInt();
+        scanner.nextLine();
+
+        switch (languageChoice) {
+            case 1:
+                return Locale.ENGLISH;
+            case 2:
+                return Locale.GERMAN;
+            case 3:
+                return Locale.FRENCH;
+            default:
+                System.out.println("Invalid choice. Using default (English)...");
+                return Locale.ENGLISH;
+        }
+
+
+    }
 }
 
 
