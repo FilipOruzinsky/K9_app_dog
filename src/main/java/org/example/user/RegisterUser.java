@@ -93,15 +93,16 @@ public class RegisterUser implements IRegisterUser {
     }
 
     public List<User> readUsersFromJsonFile(String filePath) throws IOException {
-        List<User> existingUsers = new ArrayList<>();
-
+        ObjectMapper objectMapper1 = new ObjectMapper();
         File file = new File(filePath);
-        if (file.exists()) {
-            existingUsers = objectMapper.readValue(file, new TypeReference<List<User>>() {
-            });
-        }
 
-        return existingUsers;
+//        if (file.exists()) {
+//            System.out.println("haloooooo");
+        List<User>users = objectMapper1.readValue(file, new TypeReference<List<User>>() {
+            });
+
+
+        return users;
     }
 
     private boolean isPhoneNumberAlreadyRegistered(String phoneNumber) throws IOException {
@@ -220,6 +221,7 @@ public class RegisterUser implements IRegisterUser {
     public User getUserByName(String filePath, String firstName) throws IOException {
         RegisterUser registerUser = new RegisterUser();
         List<User> existingUsers = registerUser.readUsersFromJsonFile(filePath);
+
 
         for (User user : existingUsers) {
             if (user.getFirstName().equalsIgnoreCase(firstName)) {
