@@ -6,6 +6,7 @@ import org.example.interfaces.IUserLogin;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Locale;
 import java.util.Scanner;
 
 import static org.example.user.RegisterUser.getUserByName;
@@ -83,6 +84,8 @@ public class UserLogin extends User implements IUserLogin {
 
 
 
-    }
+
+
+}
 
 

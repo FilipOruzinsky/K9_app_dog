@@ -19,109 +19,115 @@ public class Main {
         ResourceBundle formBundle = ResourceBundle.getBundle("messages", currentLocale);
 
         while (true) {
-            System.out.println(formBundle.getString("menu.choose.option")); // Choose an option
+            menuLoop:
+            while (true) {
+                System.out.println(formBundle.getString("menu.choose.option")); // Choose an option
 
-            System.out.println(formBundle.getString("menu.option.register"));
-            System.out.println(formBundle.getString("menu.option.login"));
-            System.out.println(formBundle.getString("menu.option.exit"));
+                System.out.println(formBundle.getString("menu.option.register"));
+                System.out.println(formBundle.getString("menu.option.login"));
+                System.out.println(formBundle.getString("menu.option.exit"));
 
-            int choice = scanner.nextInt();
-            scanner.nextLine();
+                int choice = scanner.nextInt();
+                scanner.nextLine();
 
-            switch (choice) {
-                case 1:
-                    RegisterUser registerUser = new RegisterUser(currentLocale);
-                    User newUser = registerUser.registerUser();
+                switch (choice) {
+                    case 1:
+                        RegisterUser registerUser = new RegisterUser(currentLocale);
+                        User newUser = registerUser.registerUser();
 
-                    if (newUser != null) {
-                        System.out.println("Registration was successful.");
-                        System.out.println("Do you want to log in now? (yes/no): ");
-                        String loginChoice = scanner.nextLine().trim().toLowerCase();
-                        if (loginChoice.equals("yes")) {
-                            UserLogin userLogin = new UserLogin();
-                            userLogin.runWithUserInput();
-                            System.out.println("Logged in successfully!");
+                        if (newUser != null) {
+                            System.out.println("Registration was successful.");
+                            System.out.println("Do you want to log in now? (yes/no): ");
+                            String loginChoice = scanner.nextLine().trim().toLowerCase();
+                            if (loginChoice.equals("yes")) {
+                                UserLogin userLogin = new UserLogin();
+                                userLogin.runWithUserInput();
+                                System.out.println("Logged in successfully!");
+                            } else {
+                                System.out.println("Returning to the main menu.");
+                            }
                         } else {
-                            System.out.println("Returning to the main menu.");
+                            System.out.println("Registration failed. Please try again.");
                         }
-                    } else {
-                        System.out.println("Registration failed. Please try again.");
-                    }
-                    break;
-                case 2:
-                    UserLogin userLogin = new UserLogin();
-                    userLogin.runWithUserInput();
-                    System.out.println("You are successfully logged in");
-                    if (userLogin != null) {
-                        System.out.println(userLogin);
-                        while (true) {
-                            System.out.println("Do you want to continue? (yes/no): ");
-                            String continueChoice = scanner.nextLine().trim().toLowerCase();
-                            if (continueChoice.equals("yes")) {
-                                System.out.println("You can do whatever you want now");
-                                while (true) {
-                                    System.out.println("1. Logout from app");
-                                    System.out.println("2. Exit the application");
-                                    System.out.println("3. Edit your information");
-                                    System.out.print("Choose an option: ");
-                                    String innerChoice = scanner.nextLine().trim();
-                                    switch (innerChoice) {
-                                        case "1":
-                                            // User chose to logout
-                                            userLogin.logout(); // Implement the logout method in UserLogin
-                                            System.out.println("You have been logged out.");
-                                            break; // Exit the current case
-                                        case "2":
-                                            // User chose to exit the whole app
+                        break;
+                    case 2:
+                        UserLogin userLogin = new UserLogin();
+                        userLogin.runWithUserInput();
+                        System.out.println("You are successfully logged in");
+                        if (userLogin != null) {
+                            System.out.println(userLogin);
+                            while (true) {
+                                System.out.println("Do you want to continue? (yes/no): ");
+                                String continueChoice = scanner.nextLine().trim().toLowerCase();
+                                if (continueChoice.equals("yes")) {
+                                    System.out.println("You can do whatever you want now");
+                                    while (true) {
+                                        System.out.println("1. Logout from app");
+                                        System.out.println("2. Exit the application");
+                                        System.out.println("3. Edit your information");
+                                        System.out.println("4. Return to main menu");
+                                        System.out.print("Choose an option: ");
+                                        String innerChoice = scanner.nextLine().trim();
+                                        switch (innerChoice) {
+                                            case "1":
+                                                // User chose to logout
+                                                userLogin.logout(); // Implement the logout method in UserLogin
+                                                System.out.println("You have been logged out.");
+                                                break; // Exit the current case
+                                            case "2":
+                                                // User chose to exit the whole app
+                                                System.out.println("Exiting the application. Goodbye!");
+                                                System.exit(0);
+                                                break; // Exit the current case
+                                            case "3":
+                                                System.out.println(userLogin.getPhoneNumber());
+                                                if (userLogin.getPhoneNumber() != null) {
+                                                    RegisterUser registerUser1 = new RegisterUser(currentLocale);
+                                                    String phoneNumber = userLogin.getPhoneNumber();
+                                                    registerUser1.editUserInfoByPhoneNumber(phoneNumber);
+                                                } else {
+                                                    System.out.println("User not logged in. Please log in first");
+                                                }
+                                                break;
+                                            case "4":
+                                                break menuLoop;
+
+                                            default:
+                                                System.out.println("Invalid choice. Please enter 1, 2, 3, or 4");
+                                                break;
+                                        }
+                                    }
+                                } else if (continueChoice.equals("no")) {
+                                    while (true) {
+                                        System.out.println("Do you want to leave the app? (yes/no): ");
+                                        String leaveChoice = scanner.nextLine().trim().toLowerCase();
+                                        if (leaveChoice.equals("yes")) {
                                             System.out.println("Exiting the application. Goodbye!");
                                             System.exit(0);
-                                            break; // Exit the current case
-                                        case "3":
-                                            System.out.println(userLogin.getPhoneNumber());
-                                            if(userLogin.getPhoneNumber()!=null){
-                                                RegisterUser registerUser1 = new RegisterUser(currentLocale);
-                                               String phoneNumber = userLogin.getPhoneNumber();
-                                               registerUser1.editUserInfoByPhoneNumber(phoneNumber);
-                                            }else {
-                                                System.out.println("User not logged in.Please log in first");
-                                            }
-                                            break;
-                                        default:
-                                            System.out.println("Invalid choice. Please enter 1 or 2 or 3");
-                                            break;
+                                        } else if (leaveChoice.equals("no")) {
+                                            System.out.println("Returning to the main menu.");
+                                            break; // Exit the inner loop if the user chooses "no"
+                                        } else {
+                                            System.out.println("Invalid choice. Please enter 'yes' or 'no'.");
+                                        }
                                     }
+                                    break; // Exit the outer loop
+                                } else {
+                                    System.out.println("Invalid choice. Please enter 'yes' or 'no'.");
                                 }
-                            } else if (continueChoice.equals("no")) {
-                                while (true) {
-                                    System.out.println("Do you want to leave the app? (yes/no): ");
-                                    String leaveChoice = scanner.nextLine().trim().toLowerCase();
-                                    if (leaveChoice.equals("yes")) {
-                                        System.out.println("Exiting the application. Goodbye!");
-                                        System.exit(0);
-                                    } else if (leaveChoice.equals("no")) {
-                                        System.out.println("Returning to the main menu.");
-                                        break; // Exit the inner loop if the user chooses "no"
-                                    } else {
-                                        System.out.println("Invalid choice. Please enter 'yes' or 'no'.");
-                                    }
-                                }
-                                break; // Exit the outer loop
-                            } else {
-                                System.out.println("Invalid choice. Please enter 'yes' or 'no'.");
                             }
                         }
-                    }
-                    break;
+                        break;
 
-                case 3:
-                    System.out.println("Exiting the application. Goodbye!");
-                    System.exit(0);
+                    case 3:
+                        System.out.println("Exiting the application. Goodbye!");
+                        System.exit(0);
 
-                default:
-                    System.out.println("Invalid choice. Please enter a valid option");
+                    default:
+                        System.out.println("Invalid choice. Please enter a valid option");
+                }
             }
         }
-
     }
 
     private static Locale selectLanguage(Scanner scanner) {
