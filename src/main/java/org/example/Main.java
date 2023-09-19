@@ -6,7 +6,6 @@ import org.example.user.UserLogin;
 
 import java.io.IOException;
 import java.util.Locale;
-import java.util.NoSuchElementException;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
@@ -49,7 +48,6 @@ public class Main {
                         System.out.println("Registration failed. Please try again.");
                     }
                     break;
-
                 case 2:
                     UserLogin userLogin = new UserLogin();
                     userLogin.runWithUserInput();
@@ -61,7 +59,38 @@ public class Main {
                             String continueChoice = scanner.nextLine().trim().toLowerCase();
                             if (continueChoice.equals("yes")) {
                                 System.out.println("You can do whatever you want now");
-                                break; // Exit the loop if the user chooses "yes"
+                                while (true) {
+                                    System.out.println("1. Logout from app");
+                                    System.out.println("2. Exit the application");
+                                    System.out.println("3. Edit your information");
+                                    System.out.print("Choose an option: ");
+                                    String innerChoice = scanner.nextLine().trim();
+                                    switch (innerChoice) {
+                                        case "1":
+                                            // User chose to logout
+                                            userLogin.logout(); // Implement the logout method in UserLogin
+                                            System.out.println("You have been logged out.");
+                                            break; // Exit the current case
+                                        case "2":
+                                            // User chose to exit the whole app
+                                            System.out.println("Exiting the application. Goodbye!");
+                                            System.exit(0);
+                                            break; // Exit the current case
+                                        case "3":
+                                            System.out.println(userLogin.getPhoneNumber());
+                                            if(userLogin.getPhoneNumber()!=null){
+                                                RegisterUser registerUser1 = new RegisterUser(currentLocale);
+                                               String phoneNumber = userLogin.getPhoneNumber();
+                                               registerUser1.editUserInfoByPhoneNumber(phoneNumber);
+                                            }else {
+                                                System.out.println("User not logged in.Please log in first");
+                                            }
+                                            break;
+                                        default:
+                                            System.out.println("Invalid choice. Please enter 1 or 2 or 3");
+                                            break;
+                                    }
+                                }
                             } else if (continueChoice.equals("no")) {
                                 while (true) {
                                     System.out.println("Do you want to leave the app? (yes/no): ");

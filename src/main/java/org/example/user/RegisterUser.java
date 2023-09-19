@@ -28,6 +28,7 @@ public class RegisterUser implements IRegisterUser {
 
     }
 
+
     @Override
     public User registerUser() throws IOException {
 
@@ -218,7 +219,7 @@ public class RegisterUser implements IRegisterUser {
         }
         return false;
     }
-    public User getUserByName(String filePath, String firstName) throws IOException {
+    public static User getUserByName(String filePath, String firstName) throws IOException {
         RegisterUser registerUser = new RegisterUser();
         List<User> existingUsers = registerUser.readUsersFromJsonFile(filePath);
 
@@ -226,6 +227,17 @@ public class RegisterUser implements IRegisterUser {
         for (User user : existingUsers) {
             if (user.getFirstName().equalsIgnoreCase(firstName)) {
                 return user; // Found a user with the matching name (case-insensitive)
+            }
+        }
+
+        return null; // User not found
+    }
+    public User getUserByUsername(String filePath, String firstname) throws IOException {
+        List<User> existingUsers = readUsersFromJsonFile(filePath);
+
+        for (User user : existingUsers) {
+            if (user.getFirstName().equalsIgnoreCase(firstname)) {
+                return user; // Found a user with the matching username (case-insensitive)
             }
         }
 
