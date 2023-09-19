@@ -5,8 +5,6 @@ import org.example.MyLogger;
 import org.example.interfaces.IUserLogin;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.Locale;
 import java.util.Scanner;
 
 import static org.example.user.RegisterUser.getUserByName;
@@ -22,14 +20,6 @@ public class UserLogin extends User implements IUserLogin {
     public UserLogin() {
     }
 
-    public User getLoggedInUser(String firstname) {
-        return loggedInUser;
-    }
-
-
-//    public UserLogin(RegisterUser registerUser) {
-//        this.registerUser = registerUser;
-//    }
 
     @Override
     public void runWithUserInput() throws IOException {
@@ -80,12 +70,6 @@ public class UserLogin extends User implements IUserLogin {
         }
         return null; // Return null if no user is logged in
     }
-
-
-
-
-
-
 }
 
 

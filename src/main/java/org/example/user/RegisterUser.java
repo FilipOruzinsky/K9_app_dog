@@ -12,11 +12,10 @@ import java.util.*;
 
 
 public class RegisterUser implements IRegisterUser {
-    private Locale currentLocale;
-
     private static final Logger logger = LogManager.getLogger(RegisterUser.class);
-    private Map<String, User> registeredUsers;
     public ObjectMapper objectMapper;
+    private Locale currentLocale;
+    private Map<String, User> registeredUsers;
 
     public RegisterUser(Locale currentLocale) {
         this.currentLocale = currentLocale;
@@ -28,14 +27,24 @@ public class RegisterUser implements IRegisterUser {
 
     }
 
+    public static User getUserByName(String filePath, String firstName) throws IOException {
+        RegisterUser registerUser = new RegisterUser();
+        List<User> existingUsers = registerUser.readUsersFromJsonFile(filePath);
+
+
+        for (User user : existingUsers) {
+            if (user.getFirstName().equalsIgnoreCase(firstName)) {
+                return user; // Found a user with the matching name (case-insensitive)
+            }
+        }
+
+        return null; // User not found
+    }
 
     @Override
     public User registerUser() throws IOException {
 
         Scanner scanner = new Scanner(System.in);
-        System.out.println("ttttttttttttttttttttttttttttt");
-
-
         ResourceBundle formBundle = ResourceBundle.getBundle("messages", currentLocale);
 
 
@@ -80,7 +89,6 @@ public class RegisterUser implements IRegisterUser {
         return newUser;
     }
 
-
     public void saveUsersToJsonFile() {
         try {
             String filePath = "/home/fo/IdeaProjects/k9_app/src/main/java/org/example/users.json"; // Specify the desired directory path
@@ -99,14 +107,14 @@ public class RegisterUser implements IRegisterUser {
 
 //        if (file.exists()) {
 //            System.out.println("haloooooo");
-        List<User>users = objectMapper1.readValue(file, new TypeReference<List<User>>() {
-            });
+        List<User> users = objectMapper1.readValue(file, new TypeReference<List<User>>() {
+        });
 
 
         return users;
     }
 
-    private boolean isPhoneNumberAlreadyRegistered(String phoneNumber) throws IOException {
+    public boolean isPhoneNumberAlreadyRegistered(String phoneNumber) throws IOException {
         List<User> existingUsers = readUsersFromJsonFile("/home/fo/IdeaProjects/k9_app/src/main/java/org/example/users.json");
 
         for (User user : existingUsers) {
@@ -116,7 +124,7 @@ public class RegisterUser implements IRegisterUser {
         }
         return false;
     }
-    //TODO skontrolovat ci edituje a sejvuje usera do user.json
+
     public void saveEditedUserToJsonFile(String filePath, List<User> usersToSave) {
         try {
             objectMapper.writeValue(new File(filePath), usersToSave);
@@ -219,37 +227,6 @@ public class RegisterUser implements IRegisterUser {
         }
         return false;
     }
-    public static User getUserByName(String filePath, String firstName) throws IOException {
-        RegisterUser registerUser = new RegisterUser();
-        List<User> existingUsers = registerUser.readUsersFromJsonFile(filePath);
-
-
-        for (User user : existingUsers) {
-            if (user.getFirstName().equalsIgnoreCase(firstName)) {
-                return user; // Found a user with the matching name (case-insensitive)
-            }
-        }
-
-        return null; // User not found
-    }
-    public User getUserByUsername(String filePath, String firstname) throws IOException {
-        List<User> existingUsers = readUsersFromJsonFile(filePath);
-
-        for (User user : existingUsers) {
-            if (user.getFirstName().equalsIgnoreCase(firstname)) {
-                return user; // Found a user with the matching username (case-insensitive)
-            }
-        }
-
-        return null; // User not found
-    }
-
-
-
-
-
-
-
 
 }
 

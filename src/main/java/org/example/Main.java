@@ -70,7 +70,7 @@ public class Main {
                                         String innerChoice = scanner.nextLine().trim();
                                         switch (innerChoice) {
                                             case "1":
-                                                // User chose to logout
+                                                // User chose to log out
                                                 userLogin.logout(); // Implement the logout method in UserLogin
                                                 System.out.println("You have been logged out.");
                                                 break; // Exit the current case
