@@ -9,8 +9,5 @@ public interface IUserLogin {
     void logout();
     String getPhoneNumber();
 
-
-
-
 }
 

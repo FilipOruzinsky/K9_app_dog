@@ -30,30 +30,44 @@ public class UserLogin extends User  implements IUserLogin {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Please fill in your credentials");
 
-        System.out.print("Enter your username: ");
-        firstName = scanner.nextLine();
+        String username = "";
+        while (username.isEmpty()) {
+            System.out.print("Enter your username: ");
+            username = scanner.nextLine();
 
-        // Log user input for username
-        logger.debug("User input - Username: {}", firstName);
+            if (username.isEmpty()) {
+                System.out.println("Username is required.");
+            }
 
-        System.out.print("Enter your password: ");
-        String password = scanner.nextLine();
+            // Log user input for username
+            logger.debug("User input - Username: {}", username);
+        }
 
-        // Log user input for password (avoid logging the password itself)
-        logger.debug("User input - Password: [hidden]");
+        String password = "";
+        while (password.isEmpty()) {
+            System.out.print("Enter your password: ");
+            password = scanner.nextLine();
 
-        loggedInUser = getUserByName(filePath, firstName);
+            if (password.isEmpty()) {
+                System.out.println("Password is required.");
+            }
 
-        if (isValidCredentials(firstName, password)) {
+            // Log user input for password (avoid logging the password itself)
+            logger.debug("User input - Password: [hidden]");
+        }
+
+        loggedInUser = getUserByName(filePath, username);
+
+        if (isValidCredentials(username, password)) {
             // Log that a login attempt is being made
-            logger.info("Attempting login for user: {}", firstName);
+            logger.info("Attempting login for user: {}", username);
 
-            performLogin(firstName, password);
+            performLogin(username, password);
         } else {
             System.out.println("Invalid credentials. Login failed.");
 
             // Log authentication failure
-            logger.warn("Authentication failed for user: {}", firstName);
+            logger.warn("Authentication failed for user: {}", username);
         }
 
         // Log entry point: End of the runWithUserInput method
