@@ -113,6 +113,7 @@ public class Main {
 
                                                 System.out.print("Enter user's phone number to delete: ");
                                                 String phoneNumberToDelete = scanner.nextLine();
+//                                                Admin admin1 = new Admin();
                                                 if (admin.deleteUserByPhoneNumber(phoneNumberToDelete)) {
                                                     System.out.println("User with phone number " + phoneNumberToDelete + " has been deleted.");
                                                 } else {
