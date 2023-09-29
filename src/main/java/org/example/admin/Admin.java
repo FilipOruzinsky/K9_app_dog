@@ -18,6 +18,17 @@ public class Admin extends RegisterUser implements IDeleteUser {
     public Admin(Locale currentLocale) {
         super(currentLocale);
     }
+    public Admin(){};
+    private String firstName= "admin";
+    private String password;
+
+    public String getUserName() {
+        return firstName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
 
     @Override
     public boolean deleteUserByPhoneNumber(String phoneNumber) {

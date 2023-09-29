@@ -1,6 +1,16 @@
 package org.example.user;
 
 public class User {
+    public String role;
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     public String getFirstName() {
         return firstName;
     }
@@ -78,6 +88,11 @@ public class User {
         this.state = state;
         this.phoneNumber = phoneNumber;
         this.dogBreed = dogBreed;
+    }
+    public User(String firstName,String password,String role){
+        this.firstName = firstName;
+        this.password = password;
+        this.role = role;
     }
 
 }

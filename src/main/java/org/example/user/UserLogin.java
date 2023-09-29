@@ -16,7 +16,12 @@ public class UserLogin extends User  implements IUserLogin {
     String filePath = "/home/fo/IdeaProjects/k9_app/src/main/java/org/example/users.json";
     private User loggedInUser;
     private String firstName;
-//    private RegisterUser registerUser = new RegisterUser();
+
+    @Override
+    public String getFirstName() {
+        return firstName;
+    }
+    //    private RegisterUser registerUser = new RegisterUser();
 
     public UserLogin() {
     }
@@ -110,9 +115,10 @@ public class UserLogin extends User  implements IUserLogin {
 
         }
     }
-
+//zmenit username to firstName ako vstupny parameter len nazov parametra ?
     @Override
     public void performLogin(String username, String password) {
+        firstName=username;
         System.out.println("Logging in user :" + username);
         logger.info("Logging in : username {}", username);
         //avoid logging password because of security reason
