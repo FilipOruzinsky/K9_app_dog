@@ -1,4 +1,4 @@
-package org.filipOruzinsky.Service;
+package org.filiporuzinsky.user;
 
 public class User {
     public String role;

@@ -1,6 +1,6 @@
-package org.filipOruzinsky.interfaces;
+package org.filiporuzinsky.interfaces;
 
-import org.filipOruzinsky.Service.User;
+import org.filiporuzinsky.user.User;
 
 import java.io.IOException;
 import java.util.List;

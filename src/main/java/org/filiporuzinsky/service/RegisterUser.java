@@ -1,10 +1,11 @@
-package org.filipOruzinsky.Service;
+package org.filiporuzinsky.service;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.filipOruzinsky.interfaces.IRegisterUser;
+import org.filiporuzinsky.interfaces.IRegisterUser;
+import org.filiporuzinsky.user.User;
 
 import java.io.File;
 import java.io.IOException;
@@ -405,7 +406,7 @@ public class RegisterUser implements IRegisterUser {
         // Log entry point: End of the editUserInfoByPhoneNumber method
         logger.info("Exiting editUserInfoByPhoneNumber method");
     }
-
+// pred upravou
 }
 
 

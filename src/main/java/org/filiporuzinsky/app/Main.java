@@ -1,9 +1,9 @@
-package org.filipOruzinsky;
+package org.filiporuzinsky.app;
 
-import org.filipOruzinsky.admin.Admin;
-import org.filipOruzinsky.Service.RegisterUser;
-import org.filipOruzinsky.Service.User;
-import org.filipOruzinsky.Service.UserLogin;
+import org.filiporuzinsky.admin.Admin;
+import org.filiporuzinsky.service.RegisterUser;
+import org.filiporuzinsky.user.User;
+import org.filiporuzinsky.service.UserLogin;
 
 import java.io.IOException;
 import java.util.List;
