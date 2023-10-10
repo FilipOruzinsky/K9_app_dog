@@ -1,9 +1,9 @@
 package org.filipOruzinsky;
 
 import org.filipOruzinsky.admin.Admin;
-import org.filipOruzinsky.user.RegisterUser;
-import org.filipOruzinsky.user.User;
-import org.filipOruzinsky.user.UserLogin;
+import org.filipOruzinsky.Service.RegisterUser;
+import org.filipOruzinsky.Service.User;
+import org.filipOruzinsky.Service.UserLogin;
 
 import java.io.IOException;
 import java.util.List;
@@ -57,7 +57,7 @@ public class Main {
                         System.out.println("You are successfully logged in");
 
                         RegisterUser registerUser1 = new RegisterUser();
-                        List<User> users = registerUser1.readUsersFromJsonFile("/home/fo/IdeaProjects/k9_app/src/main/java/org/example/users.json");
+                        List<User> users = registerUser1.readUsersFromJsonFile("/home/fo/IdeaProjects/k9_app/src/main/java/org/filipOruzinsky/users.json");
 
                         // Check if the logged-in user is an admin
                         boolean isAdmin = isUserAdmin(users, userLogin.getFirstName());

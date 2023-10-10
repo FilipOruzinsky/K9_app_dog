@@ -1,4 +1,4 @@
-package org.filipOruzinsky.user;
+package org.filipOruzinsky.Service;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -7,7 +7,7 @@ import org.filipOruzinsky.interfaces.IUserLogin;
 import java.io.IOException;
 import java.util.Scanner;
 
-import static org.filipOruzinsky.user.RegisterUser.getUserByName;
+import static org.filipOruzinsky.Service.RegisterUser.getUserByName;
 //TODO  extend userlogin ???
 
 public class UserLogin extends User  implements IUserLogin {
@@ -15,12 +15,7 @@ public class UserLogin extends User  implements IUserLogin {
     private static final Logger logger = LogManager.getLogger(UserLogin.class);
     String filePath = "/home/fo/IdeaProjects/k9_app/src/main/java/org/filipOruzinsky/users.json";
     private User loggedInUser;
-    private String firstName;
 
-    @Override
-    public String getFirstName() {
-        return firstName;
-    }
 
     public UserLogin() {
     }
@@ -114,6 +109,7 @@ public class UserLogin extends User  implements IUserLogin {
 
         }
     }
+    
 
     @Override
     public void performLogin(String firstName, String password) {

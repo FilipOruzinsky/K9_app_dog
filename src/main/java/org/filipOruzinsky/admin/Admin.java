@@ -2,8 +2,8 @@ package org.filipOruzinsky.admin;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.filipOruzinsky.interfaces.IDeleteUser;
-import org.filipOruzinsky.user.RegisterUser;
-import org.filipOruzinsky.user.User;
+import org.filipOruzinsky.Service.RegisterUser;
+import org.filipOruzinsky.Service.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

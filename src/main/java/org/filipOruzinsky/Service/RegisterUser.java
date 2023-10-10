@@ -1,4 +1,4 @@
-package org.filipOruzinsky.user;
+package org.filipOruzinsky.Service;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -185,6 +185,7 @@ public class RegisterUser implements IRegisterUser {
             logger.info("Users saved to JSON file.");
 
             //ked nemoze ulozit chyti exception
+            //FIleNOtFoundException
         } catch (IOException e) {
 
             // Log that an error occurred while saving users to the JSON file
@@ -296,7 +297,7 @@ public class RegisterUser implements IRegisterUser {
             List<User> existingUsers = readUsersFromJsonFile(filePath);
 
             // Check if the phone number is already registered
-            if (!isPhoneNumberAlreadyRegistered(existingUsers, phoneNumber)) {
+            if (!isPhoneNumberAlreadyRegistered( phoneNumber)) {
                 System.out.println("User with phone number " + phoneNumber + " not found.");
                 // Log that the user with the given phone number was not found
                 logger.info("User with phone number {} not found.", phoneNumber);
@@ -306,7 +307,7 @@ public class RegisterUser implements IRegisterUser {
             // Find the user by phone number
             User userToEdit = null;
             for (User user : existingUsers) {
-                if (user.getPhoneNumber().equals(phoneNumber)) {
+                if (user != null && user.getPhoneNumber() != null && user.getPhoneNumber().equals(phoneNumber)){
                     userToEdit = user;
                     break;
                 }
@@ -404,32 +405,6 @@ public class RegisterUser implements IRegisterUser {
         // Log entry point: End of the editUserInfoByPhoneNumber method
         logger.info("Exiting editUserInfoByPhoneNumber method");
     }
-
-
-    public boolean isPhoneNumberAlreadyRegistered(List<User> existingUsers, String phoneNumber) {
-        // Log entry point: Start of the isPhoneNumberAlreadyRegistered method
-        logger.info("Entering isPhoneNumberAlreadyRegistered method for phone number: {}", phoneNumber);
-
-        for (User user : existingUsers) {
-            if (user.getPhoneNumber().equals(phoneNumber)) {
-                // Log that the phone number is already registered
-                logger.info("Phone number {} is already registered.", phoneNumber);
-
-                // Log entry point: End of the isPhoneNumberAlreadyRegistered method (phone number already registered)
-                logger.info("Exiting isPhoneNumberAlreadyRegistered method (Phone number already registered)");
-                return true;
-            }
-        }
-
-        // Log that the phone number is not registered
-        logger.info("Phone number {} is not registered.", phoneNumber);
-
-        // Log entry point: End of the isPhoneNumberAlreadyRegistered method (phone number not registered)
-        logger.info("Exiting isPhoneNumberAlreadyRegistered method (Phone number not registered)");
-
-        return false;
-    }
-
 
 }
 
