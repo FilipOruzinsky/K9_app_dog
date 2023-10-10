@@ -1,9 +1,9 @@
-package org.example.admin;
+package org.filipOruzinsky.admin;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.example.interfaces.IDeleteUser;
-import org.example.user.RegisterUser;
-import org.example.user.User;
+import org.filipOruzinsky.interfaces.IDeleteUser;
+import org.filipOruzinsky.user.RegisterUser;
+import org.filipOruzinsky.user.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -20,16 +20,12 @@ public class Admin extends RegisterUser implements IDeleteUser {
     public Admin(Locale currentLocale) {
         super(currentLocale);
     }
-    public Admin(){};
+    public Admin(){}
     private String firstName= "admin";
-    private String password;
 
-    public String getUserName() {
+
+    public String getFirstName() {
         return firstName;
-    }
-
-    public String getPassword() {
-        return password;
     }
 
 
@@ -39,7 +35,7 @@ public boolean deleteUserByPhoneNumber(String phoneNumber) {
     logger.info("Entering deleteUserByPhoneNumber method for phone number: {}", phoneNumber);
 
     try {
-        String filePath = "/home/fo/IdeaProjects/k9_app/src/main/java/org/example/users.json";
+        String filePath = "/home/fo/IdeaProjects/k9_app/src/main/java/org/filipOruzinsky/users.json";
         RegisterUser registerUser = new RegisterUser();
 
         // Call the readUsersFromJsonFile method to get the list of existing users

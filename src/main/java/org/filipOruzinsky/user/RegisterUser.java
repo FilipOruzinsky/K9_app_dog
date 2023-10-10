@@ -1,10 +1,10 @@
-package org.example.user;
+package org.filipOruzinsky.user;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.example.interfaces.IRegisterUser;
+import org.filipOruzinsky.interfaces.IRegisterUser;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,6 +17,7 @@ public class RegisterUser implements IRegisterUser {
     public ObjectMapper objectMapper;
     private Locale currentLocale;
     private Map<String, User> registeredUsers;
+//    public RegisterUser registerUser = new RegisterUser();
 
     public RegisterUser(Locale currentLocale) {
         this.currentLocale = currentLocale;
@@ -155,34 +156,47 @@ public class RegisterUser implements IRegisterUser {
 
         // Log that registration was successful and a new user was created
         logger.info("Registration successful: New user created.");
-
-        saveUsersToJsonFile();
-
-        // Log entry point: End of the registerUser method
-        logger.info("Exiting registerUser method");
-        return newUser;
+// TODO make return code if save method working or not OR create own exception
+        try {
+            saveUsersToJsonFile();
+            return newUser;
+        } catch (IOException e) {
+            System.out.println("tusom");
+        }
+        logger.info("Exiting registerUser method ");
+        //ked je exception naco na returne mam usera ?
+        return  newUser;
     }
 
-    public void saveUsersToJsonFile() {
+
+
+
+    public void saveUsersToJsonFile() throws IOException{
         // Log entry point: Start of the saveUsersToJsonFile method
         logger.info("Entering saveUsersToJsonFile method");
 
         try {
-            String filePath = "/home/fo/IdeaProjects/k9_app/src/main/java/org/example/users.json"; // Specify the desired directory path
+            String filePath = "/home/fo/IdeaProjects/k9_app/src/main/java/org/filipOruzinsky/users.json"; // Specify the desired directory path
             List<User> existingUsers = readUsersFromJsonFile(filePath);
             existingUsers.addAll(new ArrayList<>(registeredUsers.values()));
             objectMapper.writeValue(new File(filePath), existingUsers);
             System.out.println("Users saved to JSON file."); // Consider replacing this with a log message
             // Log that users have been successfully saved to the JSON file
             logger.info("Users saved to JSON file.");
+
+            //ked nemoze ulozit chyti exception
         } catch (IOException e) {
+
             // Log that an error occurred while saving users to the JSON file
-            logger.error("Error saving users to JSON file: {}", e.getMessage());
+            logger.error("Error saving users to JSON file: {}", e.getMessage(),e);
             System.out.println("Error saving users to JSON file: " + e.getMessage());
+
+        }catch (Exception e){
+            logger.error(" Caught General exception ");
         }
 
         // Log entry point: End of the saveUsersToJsonFile method
-        logger.info("Exiting saveUsersToJsonFile method");
+//        logger.info("Exiting saveUsersToJsonFile method");
     }
 
 
@@ -216,10 +230,10 @@ public class RegisterUser implements IRegisterUser {
         // Log entry point: Start of the isPhoneNumberAlreadyRegistered method
         logger.info("Entering isPhoneNumberAlreadyRegistered method for phone number: {}", phoneNumber);
 
-        List<User> existingUsers;
+        List<User> existingUsers=new ArrayList<>();
 
         try {
-            existingUsers = readUsersFromJsonFile("/home/fo/IdeaProjects/k9_app/src/main/java/org/example/users.json");
+            existingUsers = readUsersFromJsonFile("/home/fo/IdeaProjects/k9_app/src/main/java/org/filipOruzinsky/users.json");
             // Log that users have been successfully read from the JSON file
             logger.debug("Users successfully read from JSON file for phone number check.");
         } catch (IOException e) {
@@ -229,7 +243,7 @@ public class RegisterUser implements IRegisterUser {
         }
 
         for (User user : existingUsers) {
-            if (user.getPhoneNumber().equals(phoneNumber)) {
+            if (user != null && user.getPhoneNumber() != null && user.getPhoneNumber().equals(phoneNumber)) {
                 // Log that the phone number is already registered
                 logger.info("Phone number {} is already registered.", phoneNumber);
                 // Log entry point: End of the isPhoneNumberAlreadyRegistered method (phone number already registered)
@@ -276,7 +290,7 @@ public class RegisterUser implements IRegisterUser {
         logger.info("Entering editUserInfoByPhoneNumber method for phone number: {}", phoneNumber);
 
         try {
-            String filePath = "/home/fo/IdeaProjects/k9_app/src/main/java/org/example/users.json"; // Provide the correct file path
+            String filePath = "/home/fo/IdeaProjects/k9_app/src/main/java/org/filipOruzinsky/users.json"; // Provide the correct file path
 
             // Call the readUsersFromJsonFile method to get the list of existing users
             List<User> existingUsers = readUsersFromJsonFile(filePath);

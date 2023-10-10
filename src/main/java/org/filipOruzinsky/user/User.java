@@ -1,4 +1,4 @@
-package org.example.user;
+package org.filipOruzinsky.user;
 
 public class User {
     public String role;

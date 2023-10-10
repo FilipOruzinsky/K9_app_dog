@@ -1,19 +1,19 @@
-package org.example.user;
+package org.filipOruzinsky.user;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.example.interfaces.IUserLogin;
+import org.filipOruzinsky.interfaces.IUserLogin;
 
 import java.io.IOException;
 import java.util.Scanner;
 
-import static org.example.user.RegisterUser.getUserByName;
-/// extend userlogin ???
+import static org.filipOruzinsky.user.RegisterUser.getUserByName;
+//TODO  extend userlogin ???
 
 public class UserLogin extends User  implements IUserLogin {
 
     private static final Logger logger = LogManager.getLogger(UserLogin.class);
-    String filePath = "/home/fo/IdeaProjects/k9_app/src/main/java/org/example/users.json";
+    String filePath = "/home/fo/IdeaProjects/k9_app/src/main/java/org/filipOruzinsky/users.json";
     private User loggedInUser;
     private String firstName;
 
@@ -21,7 +21,6 @@ public class UserLogin extends User  implements IUserLogin {
     public String getFirstName() {
         return firstName;
     }
-    //    private RegisterUser registerUser = new RegisterUser();
 
     public UserLogin() {
     }
@@ -115,14 +114,13 @@ public class UserLogin extends User  implements IUserLogin {
 
         }
     }
-//zmenit username to firstName ako vstupny parameter len nazov parametra ?
+
     @Override
-    public void performLogin(String username, String password) {
-        firstName=username;
-        System.out.println("Logging in user :" + username);
-        logger.info("Logging in : username {}", username);
+    public void performLogin(String firstName, String password) {
+        System.out.println("Logging in user :" + firstName);
+        logger.info("Logging in : username {}", firstName);
         //avoid logging password because of security reason
-        logger.debug("Login attempt: username {}", username);
+        logger.debug("Login attempt: username {}", firstName);
 
     }
 

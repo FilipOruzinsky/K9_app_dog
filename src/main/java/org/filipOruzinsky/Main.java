@@ -1,13 +1,10 @@
-package org.example;
+package org.filipOruzinsky;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.example.admin.Admin;
-import org.example.user.RegisterUser;
-import org.example.user.User;
-import org.example.user.UserLogin;
+import org.filipOruzinsky.admin.Admin;
+import org.filipOruzinsky.user.RegisterUser;
+import org.filipOruzinsky.user.User;
+import org.filipOruzinsky.user.UserLogin;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
@@ -64,8 +61,6 @@ public class Main {
 
                         // Check if the logged-in user is an admin
                         boolean isAdmin = isUserAdmin(users, userLogin.getFirstName());
-                        System.out.println(isAdmin +"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-                        System.out.println(users + "beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
 
                         while (true) {
                             System.out.println("Do you want to continue? (yes/no): ");
@@ -109,11 +104,10 @@ public class Main {
                                         case "5":
                                             if (isAdmin) {
                                                 Admin admin = new Admin();
-                                                if (admin.getUserName().equals("admin"))
+                                                if (admin.getFirstName().equals("admin"))
 
                                                 System.out.print("Enter user's phone number to delete: ");
                                                 String phoneNumberToDelete = scanner.nextLine();
-//                                                Admin admin1 = new Admin();
                                                 if (admin.deleteUserByPhoneNumber(phoneNumberToDelete)) {
                                                     System.out.println("User with phone number " + phoneNumberToDelete + " has been deleted.");
                                                 } else {
@@ -187,49 +181,9 @@ public class Main {
         }
     }
 
-//    private static boolean isUserAdmin(List<User> users, String firstname) {
-//        for (User user : users) {
-//            if (user.getFirstName() != null && user.getFirstName().equals("admin")) {
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
-//private static boolean isUserAdmin(String filePath, String username) {
-//    filePath = "/home/fo/IdeaProjects/k9_app/src/main/java/org/example/users.json";
-//    try {
-//        ObjectMapper objectMapper = new ObjectMapper();
-//        File file = new File(filePath);
-//
-//        List<User> users = objectMapper.readValue(file, new TypeReference<List<User>>() {});
-//
-//        for (User user : users) {
-//            if ("admin".equals(user.getFirstName()) && "admin".equals(username)) {
-//                return"admin".equals(username);
-//            }
-//        }
-//    } catch (IOException e) {
-//        // Handle exceptions here, such as file not found or JSON parsing errors
-//        e.printStackTrace();
-//    }
-//
-//    return false;
-//}
-//private static boolean isUserAdmin(List<User> users, String firstName) {
-//    for (User user : users) {
-//        if ("admin".equals(user.getFirstName()) && "admin".equals(user.getPassword()) && "admin".equals(firstName)) {
-//            return true;
-//        }
-//    }
-//    return false;
-//}
-private static boolean isUserAdmin(List<User> users, String firstName) {
-    System.out.println("taco");
-    for (User user : users) {
-        System.out.println("User firstName: " + user.getFirstName());
-        System.out.println("User password: " + user.getPassword());
-        System.out.println("Input firstName: " + firstName);
 
+private static boolean isUserAdmin(List<User> users, String firstName) {
+    for (User user : users) {
         if ("admin".equals(user.getFirstName()) && "admin".equals(user.getPassword()) && "admin".equals(firstName)) {
             System.out.println("Admin user found.");
             return true;
@@ -237,11 +191,5 @@ private static boolean isUserAdmin(List<User> users, String firstName) {
     }
     return false;
 }
-
-
-
-
-
-
 
 }
