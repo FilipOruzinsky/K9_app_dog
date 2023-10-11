@@ -1,4 +1,4 @@
-package org.filiporuzinsky.interfaces;
+package org.filipOruzinsky.interfaces;
 
 import java.io.IOException;
 

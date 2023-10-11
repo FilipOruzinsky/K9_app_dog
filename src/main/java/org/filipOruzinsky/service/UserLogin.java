@@ -1,14 +1,14 @@
-package org.filiporuzinsky.service;
+package org.filipOruzinsky.service;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.filiporuzinsky.interfaces.IUserLogin;
-import org.filiporuzinsky.user.User;
+import org.filipOruzinsky.interfaces.IUserLogin;
+import org.filipOruzinsky.user.User;
 
 import java.io.IOException;
 import java.util.Scanner;
 
-import static org.filiporuzinsky.service.RegisterUser.getUserByName;
+import static org.filipOruzinsky.service.RegisterUser.getUserByName;
 //TODO  extend userlogin ???
 
 public class UserLogin extends User  implements IUserLogin {

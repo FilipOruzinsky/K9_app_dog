@@ -1,4 +1,4 @@
-package org.filiporuzinsky;
+package org.filipOruzinsky;
 
 public class Dog {
 
