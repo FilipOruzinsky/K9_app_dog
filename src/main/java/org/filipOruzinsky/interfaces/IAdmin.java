@@ -1,5 +1,5 @@
 package org.filipOruzinsky.interfaces;
 
-public interface IDeleteUser {
+public interface IAdmin {
     boolean deleteUserByPhoneNumber(String phoneNumber);
 }

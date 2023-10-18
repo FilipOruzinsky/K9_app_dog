@@ -2,29 +2,24 @@ package org.filipOruzinsky.service;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.filipOruzinsky.interfaces.IUserLogin;
+import org.filipOruzinsky.interfaces.IAuthentication;
 import org.filipOruzinsky.user.User;
 
 import java.io.IOException;
+import java.util.Locale;
 import java.util.Scanner;
 
-import static org.filipOruzinsky.service.RegisterUser.getUserByName;
-//TODO  extend userlogin ???
+import static org.filipOruzinsky.service.UserManagement.getUserByName;
 
-public class UserLogin extends User  implements IUserLogin {
+public class Authentication extends User implements IAuthentication {
 
-    private static final Logger logger = LogManager.getLogger(UserLogin.class);
+    private static final Logger logger = LogManager.getLogger(Authentication.class);
     String filePath = "/home/fo/IdeaProjects/k9_app/src/main/java/org/filipOruzinsky/users.json";
+
+
     private User loggedInUser;
-
-
-    public UserLogin() {
-    }
-
-//TODO spravit aby user pri logine nemohol nechat prazdny username a password
     @Override
     public void runWithUserInput() throws IOException {
-        // Log entry point: Start of the runWithUserInput method
         logger.info("Entering runWithUserInput method");
 
         Scanner scanner = new Scanner(System.in);
@@ -39,7 +34,6 @@ public class UserLogin extends User  implements IUserLogin {
                 System.out.println("Username is required.");
             }
 
-            // Log user input for username
             logger.debug("User input - Username: {}", username);
         }
 
@@ -52,28 +46,33 @@ public class UserLogin extends User  implements IUserLogin {
                 System.out.println("Password is required.");
             }
 
-            // Log user input for password (avoid logging the password itself)
             logger.debug("User input - Password: [hidden]");
         }
 
         loggedInUser = getUserByName(filePath, username);
 
         if (isValidCredentials(username, password)) {
-            // Log that a login attempt is being made
             logger.info("Attempting login for user: {}", username);
 
             performLogin(username, password);
         } else {
             System.out.println("Invalid credentials. Login failed.");
 
-            // Log authentication failure
             logger.warn("Authentication failed for user: {}", username);
         }
 
-        // Log entry point: End of the runWithUserInput method
         logger.info("Exiting runWithUserInput method");
     }
 
+    @Override
+    public void performLogin(String firstName, String password) {
+        System.out.println("Logging in user :" + firstName);
+        logger.info("Logging in : username {}", firstName);
+        //avoid logging password because of security reason
+        logger.debug("Login attempt: username {}", firstName);
+
+    }
+    @Override
     public void logout() {
         logger.info("Entering logout method");
         logger.debug("Method parameters - NONE");
@@ -89,7 +88,7 @@ public class UserLogin extends User  implements IUserLogin {
         System.out.println("You have been logged out.");
     }
 
-    //method check if registered user wants login with valid firstName and Password
+
     @Override
     public boolean isValidCredentials(String firstName, String password) throws IOException {
         logger.info("Entering isValidCredentials method for user: {}", firstName);
@@ -110,17 +109,7 @@ public class UserLogin extends User  implements IUserLogin {
 
         }
     }
-
-
     @Override
-    public void performLogin(String firstName, String password) {
-        System.out.println("Logging in user :" + firstName);
-        logger.info("Logging in : username {}", firstName);
-        //avoid logging password because of security reason
-        logger.debug("Login attempt: username {}", firstName);
-
-    }
-
     public String getPhoneNumber() {
         logger.info("Entering getPhoneNumber method");
         if (loggedInUser != null) {
@@ -137,7 +126,4 @@ public class UserLogin extends User  implements IUserLogin {
             return  null; // returning null if no user logged in
         }
     }
-    //pred upravou
 }
-
-

@@ -1,9 +1,9 @@
 package org.filipOruzinsky.app;
 
 import org.filipOruzinsky.admin.Admin;
-import org.filipOruzinsky.service.RegisterUser;
+import org.filipOruzinsky.service.Authentication;
+import org.filipOruzinsky.service.UserManagement;
 import org.filipOruzinsky.user.User;
-import org.filipOruzinsky.service.UserLogin;
 
 import java.io.IOException;
 import java.util.List;
@@ -33,16 +33,16 @@ public class Main {
 
                 switch (choice) {
                     case 1:
-                        RegisterUser registerUser = new RegisterUser(currentLocale);
-                        User newUser = registerUser.registerUser();
+                        UserManagement userManagement = new UserManagement(currentLocale);
+                        User newUser = userManagement.registerUser();
 
                         if (newUser != null) {
                             System.out.println("Registration was successful.");
                             System.out.println("Do you want to log in now? (yes/no): ");
                             String loginChoice = scanner.nextLine().trim().toLowerCase();
                             if (loginChoice.equals("yes")) {
-                                UserLogin userLogin = new UserLogin();
-                                userLogin.runWithUserInput();
+                                Authentication authentication = new Authentication();
+                                authentication.runWithUserInput();
                                 System.out.println("Logged in successfully!");
                             } else {
                                 System.out.println("Returning to the main menu.");
@@ -52,15 +52,15 @@ public class Main {
                         }
                         break;
                     case 2:
-                        UserLogin userLogin = new UserLogin();
-                        userLogin.runWithUserInput();
+                        Authentication authentication = new Authentication();
+                        authentication.runWithUserInput();
                         System.out.println("You are successfully logged in");
 
-                        RegisterUser registerUser1 = new RegisterUser();
+                        UserManagement registerUser1 = new UserManagement();
                         List<User> users = registerUser1.readUsersFromJsonFile("/home/fo/IdeaProjects/k9_app/src/main/java/org/filipOruzinsky/users.json");
 
                         // Check if the logged-in user is an admin
-                        boolean isAdmin = isUserAdmin(users, userLogin.getFirstName());
+                        boolean isAdmin = isUserAdmin(users, authentication.getFirstName());
 
                         while (true) {
                             System.out.println("Do you want to continue? (yes/no): ");
@@ -81,7 +81,7 @@ public class Main {
                                     switch (innerChoice) {
                                         case "1":
                                             // User chose to log out
-                                            userLogin.logout(); // Implement the logout method in UserLogin
+                                            authentication.logout(); // Implement the logout method in UserLogin
                                             System.out.println("You have been logged out.");
                                             break; // Exit the current case
                                         case "2":
@@ -90,10 +90,10 @@ public class Main {
                                             System.exit(0);
                                             break; // Exit the current case
                                         case "3":
-                                            System.out.println(userLogin.getPhoneNumber());
-                                            if (userLogin.getPhoneNumber() != null) {
-                                                RegisterUser registerUser2 = new RegisterUser(currentLocale);
-                                                String phoneNumber = userLogin.getPhoneNumber();
+                                            System.out.println(authentication.getPhoneNumber() + "phoneNumber");
+                                            if (authentication.getPhoneNumber() != null) {
+                                                UserManagement registerUser2 = new UserManagement(currentLocale);
+                                                String phoneNumber = authentication.getPhoneNumber();
                                                 registerUser2.editUserInfoByPhoneNumber(phoneNumber);
                                             } else {
                                                 System.out.println("User not logged in. Please log in first");
