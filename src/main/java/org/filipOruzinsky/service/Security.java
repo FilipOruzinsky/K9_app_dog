@@ -39,4 +39,23 @@ public class Security {
 
         return false;
     }
+
+    public boolean isValidPassword(String password) {
+        // Check for at least one uppercase letter and two numbers
+        int uppercaseCount = 0;
+        int numberCount = 0;
+
+        for (char c : password.toCharArray()) {
+            if (Character.isUpperCase(c)) {
+                uppercaseCount++;
+            } else if (Character.isDigit(c)) {
+                numberCount++;
+            }
+        }
+
+        boolean isValid = uppercaseCount >= 1 && numberCount >= 2;
+
+        if (!isValid) {
+        }return isValid;
+    }
 }

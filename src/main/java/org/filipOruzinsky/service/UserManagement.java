@@ -18,8 +18,12 @@ public class UserManagement extends User implements IUserManagement {
     public UserManagement(Locale currentLocale){
         this.currentLocale = currentLocale;
         registeredUsers = new HashMap<>();
+        security = new Security();
     };
     public UserManagement(){};
+
+    private Security security;
+
 
 
     private static final Logger logger = LogManager.getLogger(UserManagement.class);
@@ -64,14 +68,19 @@ public class UserManagement extends User implements IUserManagement {
 
 
         String password = "";
-        while (password.isEmpty()) {
+        while (true) {
             System.out.println(formBundle.getString("enter_password"));
             password = scanner.nextLine();
-            // Add validation for the password
+
             if (password.isEmpty()) {
                 System.out.println(formBundle.getString("password_required"));
+            } else if (!security.isValidPassword(password)) {
+                System.out.println(formBundle.getString("password_invalid"));
+            } else {
+                break; // Valid password, exit the loop
             }
         }
+
 
         String address = "";
         while (address.isEmpty()) {
@@ -126,7 +135,6 @@ public class UserManagement extends User implements IUserManagement {
         registeredUsers.put(newUser.getPhoneNumber(), newUser);
 
         logger.info("Registration successful: New user created.");
-// TODO make return code if save method working or not OR create own exception
         try {
             UserDataAccess userDataAccess = new UserDataAccess();
             userDataAccess.saveUsersToJsonFile(registeredUsers);

@@ -152,7 +152,7 @@ public class Main {
         }
     }
 
-    private static Locale selectLanguage(Scanner scanner) {
+    public static Locale selectLanguage(Scanner scanner) {
         System.out.println("Choose your language: ");
         System.out.println("1. English");
         System.out.println("2. German");
