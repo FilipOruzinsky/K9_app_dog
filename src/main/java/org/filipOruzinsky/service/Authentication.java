@@ -7,6 +7,7 @@ import org.filipOruzinsky.user.User;
 
 import java.io.IOException;
 import java.util.Locale;
+import java.util.ResourceBundle;
 import java.util.Scanner;
 
 import static org.filipOruzinsky.service.UserManagement.getUserByName;
@@ -18,20 +19,24 @@ public class Authentication extends User implements IAuthentication {
 
 
     private User loggedInUser;
-    @Override
-    public void runWithUserInput() throws IOException {
+//    @Override
+    public boolean runWithUserInput(Locale currentLocale) throws IOException {
         logger.info("Entering runWithUserInput method");
 
+        ResourceBundle formBundle = ResourceBundle.getBundle("messages",currentLocale);
+
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Please fill in your credentials");
+        //TODO pridat resource bundle pre jazyky, upravit Interface pre methodu runWithUsersInput a performLogin
+
 
         String username = "";
         while (username.isEmpty()) {
-            System.out.print("Enter your username: ");
+
+            System.out.println(formBundle.getString("enter_username"));
             username = scanner.nextLine();
 
             if (username.isEmpty()) {
-                System.out.println("Username is required.");
+                System.out.println(formBundle.getString("username_required"));
             }
 
             logger.debug("User input - Username: {}", username);
@@ -39,11 +44,11 @@ public class Authentication extends User implements IAuthentication {
 
         String password = "";
         while (password.isEmpty()) {
-            System.out.print("Enter your password: ");
+            System.out.println(formBundle.getString("enter_password2"));
             password = scanner.nextLine();
 
             if (password.isEmpty()) {
-                System.out.println("Password is required.");
+                System.out.println(formBundle.getString("password_required2"));
             }
 
             logger.debug("User input - Password: [hidden]");
@@ -51,29 +56,34 @@ public class Authentication extends User implements IAuthentication {
 
         loggedInUser = getUserByName(filePath, username);
 
-        if (isValidCredentials(username, password)) {
+        if (isValidCredentials(username, password,currentLocale)) {
             logger.info("Attempting login for user: {}", username);
 
-            performLogin(username, password);
+            performLogin(username, currentLocale);
         } else {
-            System.out.println("Invalid credentials. Login failed.");
+            System.out.println(formBundle.getString("invalid_credentials"));
 
             logger.warn("Authentication failed for user: {}", username);
         }
 
         logger.info("Exiting runWithUserInput method");
+        return false;
     }
 
-    @Override
-    public void performLogin(String firstName, String password) {
-        System.out.println("Logging in user :" + firstName);
+//    @Override
+    public void performLogin(String firstName, Locale currentLocale) {
+        ResourceBundle formBundle = ResourceBundle.getBundle("messages",currentLocale);
+        System.out.println(formBundle.getString("logging_user")+firstName);
+
         logger.info("Logging in : username {}", firstName);
         //avoid logging password because of security reason
         logger.debug("Login attempt: username {}", firstName);
 
     }
-    @Override
-    public void logout() {
+//    @Override
+    public void logout(Locale currentLocale) {
+        ResourceBundle formBundle = ResourceBundle.getBundle("messages",currentLocale);
+
         logger.info("Entering logout method");
         logger.debug("Method parameters - NONE");
         if (loggedInUser != null){
@@ -85,12 +95,13 @@ public class Authentication extends User implements IAuthentication {
         }
         logger.info("Exiting logout method");
 
-        System.out.println("You have been logged out.");
+        System.out.println(formBundle.getString("logout_message_for_user "));
     }
 
 
-    @Override
-    public boolean isValidCredentials(String firstName, String password) throws IOException {
+//    @Override
+    public boolean isValidCredentials(String firstName, String password,Locale currentLocale) throws IOException {
+        ResourceBundle formBundle = ResourceBundle.getBundle("messages",currentLocale);
         logger.info("Entering isValidCredentials method for user: {}", firstName);
         logger.debug("Method parameters - firstname: {}, password:{}", firstName, password);
         try {
@@ -99,6 +110,7 @@ public class Authentication extends User implements IAuthentication {
                 logger.info("User {} successsfully authenticated", firstName);
                 return true; // Username and password match
             } else
+                System.out.println(formBundle.getString("invalid_password"));
                 logger.warn("Authentication failed for user: {}", firstName);
             return false; // Invalid credentials
         } catch (IOException e) {
@@ -126,4 +138,6 @@ public class Authentication extends User implements IAuthentication {
             return  null; // returning null if no user logged in
         }
     }
-}
+
+    }
+

@@ -1,5 +1,8 @@
 package org.filipOruzinsky.user;
 
+import java.util.Locale;
+import java.util.Scanner;
+
 public class User {
     public String role;
 
@@ -93,6 +96,34 @@ public class User {
         this.firstName = firstName;
         this.password = password;
         this.role = role;
+    }
+    public static Locale selectLanguage(Scanner scanner) {
+        System.out.println("Choose your language: ");
+        System.out.println("1. English");
+        System.out.println("2. German");
+        System.out.println("3. French");
+
+        int languageChoice;
+        if (scanner.hasNextInt()) {
+            languageChoice = scanner.nextInt();
+            scanner.nextLine(); // Consume the newline character
+        } else {
+            System.out.println("Invalid input. Using default (English)...");
+            scanner.nextLine(); // Consume invalid input
+            return Locale.ENGLISH;
+        }
+
+        switch (languageChoice) {
+            case 1:
+                return Locale.ENGLISH;
+            case 2:
+                return Locale.GERMAN;
+            case 3:
+                return Locale.FRENCH;
+            default:
+                System.out.println("Invalid choice. Using default (English)...");
+                return Locale.ENGLISH;
+        }
     }
 
 }
