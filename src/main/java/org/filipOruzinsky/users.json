@@ -258,5 +258,245 @@
     "state": "maras",
     "phoneNumber": "maras",
     "dogBreed": "maras"
+  },
+  {
+    "role": null,
+    "firstName": "janko",
+    "lastName": "janko",
+    "password": "Janko12",
+    "address": "janko",
+    "state": "janko",
+    "phoneNumber": "janko",
+    "dogBreed": "janko"
+  },
+  {
+    "role": null,
+    "firstName": "java",
+    "lastName": "java",
+    "password": "Java12",
+    "address": "java",
+    "state": "java",
+    "phoneNumber": "java",
+    "dogBreed": "java"
+  },
+  {
+    "role": null,
+    "firstName": "baro",
+    "lastName": "baro",
+    "password": "Baro12",
+    "address": "baro",
+    "state": "baro",
+    "phoneNumber": "baro",
+    "dogBreed": "baro"
+  },
+  {
+    "role": null,
+    "firstName": "toro",
+    "lastName": "toro",
+    "password": "Toro12",
+    "address": "toro",
+    "state": "toro",
+    "phoneNumber": "toro",
+    "dogBreed": "toro"
+  },
+  {
+    "role": null,
+    "firstName": "kira",
+    "lastName": "kira",
+    "password": "Kira12",
+    "address": "kira",
+    "state": "kira",
+    "phoneNumber": "kira",
+    "dogBreed": "kira"
+  },
+  {
+    "role": null,
+    "firstName": "avar",
+    "lastName": "avar",
+    "password": "Avar12",
+    "address": "avar",
+    "state": "avar",
+    "phoneNumber": "avar",
+    "dogBreed": "avar"
+  },
+  {
+    "role": null,
+    "firstName": "bara",
+    "lastName": "bara",
+    "password": "Bara12",
+    "address": "bara",
+    "state": "bara",
+    "phoneNumber": "bara",
+    "dogBreed": "bara"
+  },
+  {
+    "role": null,
+    "firstName": "mia",
+    "lastName": "mia",
+    "password": "Mia12",
+    "address": "mia",
+    "state": "mia",
+    "phoneNumber": "mia",
+    "dogBreed": "mia"
+  },
+  {
+    "role": null,
+    "firstName": "biro",
+    "lastName": "biro",
+    "password": "Biro12",
+    "address": "biro",
+    "state": "biro",
+    "phoneNumber": "biro",
+    "dogBreed": "biro"
+  },
+  {
+    "role": null,
+    "firstName": "gaja",
+    "lastName": "gaja",
+    "password": "Gaja12",
+    "address": "gaja",
+    "state": "gaja",
+    "phoneNumber": "gaja",
+    "dogBreed": "gaja"
+  },
+  {
+    "role": null,
+    "firstName": "tomas",
+    "lastName": "tomas",
+    "password": "Tomas12",
+    "address": "tomas",
+    "state": "tomas",
+    "phoneNumber": "tomas",
+    "dogBreed": "tomas"
+  },
+  {
+    "role": null,
+    "firstName": "mark",
+    "lastName": "mark",
+    "password": "Mark12",
+    "address": "mark",
+    "state": "mark",
+    "phoneNumber": "mark",
+    "dogBreed": "mark"
+  },
+  {
+    "role": null,
+    "firstName": "mama",
+    "lastName": "mama",
+    "password": "Mama12",
+    "address": "mama",
+    "state": "mama",
+    "phoneNumber": "mama",
+    "dogBreed": "mama"
+  },
+  {
+    "role": null,
+    "firstName": "oco",
+    "lastName": "ococ",
+    "password": "Oco12",
+    "address": "ococ",
+    "state": "ococ",
+    "phoneNumber": "ococ",
+    "dogBreed": "ococ"
+  },
+  {
+    "role": null,
+    "firstName": "brat",
+    "lastName": "brat",
+    "password": "Brat12",
+    "address": "brat",
+    "state": "brat",
+    "phoneNumber": "brat",
+    "dogBreed": "brat"
+  },
+  {
+    "role": null,
+    "firstName": "jana",
+    "lastName": "jana",
+    "password": "Jana12",
+    "address": "jana\\",
+    "state": "jana",
+    "phoneNumber": "jana",
+    "dogBreed": "jana"
+  },
+  {
+    "role": null,
+    "firstName": "ego",
+    "lastName": "ego",
+    "password": "Ego12",
+    "address": "ego",
+    "state": "ego",
+    "phoneNumber": "ego",
+    "dogBreed": "ego"
+  },
+  {
+    "role": null,
+    "firstName": "jopo",
+    "lastName": "jopo",
+    "password": "Jopo12",
+    "address": "jopo",
+    "state": "jopo",
+    "phoneNumber": "jopo",
+    "dogBreed": "jopo"
+  },
+  {
+    "role": null,
+    "firstName": "ciko",
+    "lastName": "ciko",
+    "password": "Ciko12",
+    "address": "ciko",
+    "state": "ciko",
+    "phoneNumber": "ciko",
+    "dogBreed": "ciko"
+  },
+  {
+    "role": null,
+    "firstName": "rep",
+    "lastName": "rep",
+    "password": "Rep12",
+    "address": "rep",
+    "state": "rep",
+    "phoneNumber": "rep",
+    "dogBreed": "rep"
+  },
+  {
+    "role": null,
+    "firstName": "rap",
+    "lastName": "rap",
+    "password": "Rap12",
+    "address": "rap",
+    "state": "rap",
+    "phoneNumber": "rap",
+    "dogBreed": "rap"
+  },
+  {
+    "role": null,
+    "firstName": "ff",
+    "lastName": "ff",
+    "password": "Ff12",
+    "address": "ff",
+    "state": "ff",
+    "phoneNumber": "ff",
+    "dogBreed": "ff"
+  },
+  {
+    "role": null,
+    "firstName": "bravo",
+    "lastName": "bravo",
+    "password": "Bravo12",
+    "address": "bravo",
+    "state": "bravo",
+    "phoneNumber": "bravo",
+    "dogBreed": "bravo"
+  },
+  {
+    "role": null,
+    "firstName": "gross",
+    "lastName": "gross",
+    "password": "Gross12",
+    "address": "gross",
+    "state": "gross",
+    "phoneNumber": "gross",
+    "dogBreed": "gross"
   }
 ]

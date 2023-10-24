@@ -51,14 +51,13 @@ public class Main {
 
 //TODO pozriet nato lebo nebarz dobre
                                 Authentication authentication = new Authentication();
-                                if(!authentication.runWithUserInput(currentLocale)){
-                                    System.out.println(formBundle.getString("logginNot_message"));
-                                    Authentication authentication1 = new Authentication();
-                                    authentication1.runWithUserInput(currentLocale);
-                                }else
-                                    System.out.println(formBundle.getString("loggedin_message2 "));
+                                if (authentication.runWithUserInput(currentLocale)) {
+                                    System.out.println(formBundle.getString("loggedin_message2"));
 
 
+                                } else System.out.println(formBundle.getString("logginNot_message"));
+                                Authentication authentication1 = new Authentication();
+                                authentication1.runWithUserInput(currentLocale);
 
 
                             } else {
@@ -71,15 +70,14 @@ public class Main {
                     //TODO dokoncit ostatne polia jazyky
                     case 2:
                         System.out.println(formBundle.getString("enter_credentials"));
-
                         Authentication authentication = new Authentication();
-                        if (authentication.runWithUserInput(currentLocale)) {
-                            System.out.println(formBundle.getString("logedin_message"));
-
-                       } else System.out.println(formBundle.getString("logginNot_message"));
-                        Authentication authentication1 = new Authentication();
-                        authentication1.runWithUserInput(currentLocale);
-
+                        boolean isUserLogin;
+                        do {
+                            isUserLogin = authentication.runWithUserInput(currentLocale);
+                            if (!isUserLogin) {
+                                System.out.println(formBundle.getString("logginNot_message"));
+                            }
+                        } while (!isUserLogin);
 
 
                         UserManagement registerUser1 = new UserManagement();

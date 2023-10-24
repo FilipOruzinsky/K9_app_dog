@@ -59,7 +59,8 @@ public class Authentication extends User implements IAuthentication {
         if (isValidCredentials(username, password,currentLocale)) {
             logger.info("Attempting login for user: {}", username);
 
-            performLogin(username, currentLocale);
+            performLogin(username, password,currentLocale);
+            return true;
         } else {
             System.out.println(formBundle.getString("invalid_credentials"));
 
@@ -71,7 +72,7 @@ public class Authentication extends User implements IAuthentication {
     }
 
 //    @Override
-    public void performLogin(String firstName, Locale currentLocale) {
+    public void performLogin(String firstName, String password, Locale currentLocale) {
         ResourceBundle formBundle = ResourceBundle.getBundle("messages",currentLocale);
         System.out.println(formBundle.getString("logging_user")+firstName);
 
