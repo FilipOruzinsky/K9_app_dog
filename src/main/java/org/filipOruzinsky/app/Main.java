@@ -46,6 +46,8 @@ public class Main {
 
                             if (loginChoice.equals("yes") || loginChoice.equals("ja") || loginChoice.equals("qui")) {
                                 Authentication authentication = getAuthentication(currentLocale, formBundle);
+                                System.out.println(formBundle.getString("loggedin_message2"));
+
 
                                 loggedInMenuLoop: while (true) {
                                     System.out.println(formBundle.getString("continue_offer"));
@@ -93,6 +95,8 @@ public class Main {
                         UserManagement registerUser1 = new UserManagement();
                         List<User> users = registerUser1.readUsersFromJsonFile("/home/fo/IdeaProjects/k9_app/src/main/java/org/filipOruzinsky/users.json");
                         boolean isAdmin = isUserAdmin(users, authentication.getFirstName());
+                        System.out.println(formBundle.getString("loggedin_message2"));
+
 
                         loggedInMenuLoop: while (true) {
                             System.out.println(formBundle.getString("continue_offer"));
