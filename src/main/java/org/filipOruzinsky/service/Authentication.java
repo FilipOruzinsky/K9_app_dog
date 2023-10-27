@@ -96,7 +96,7 @@ public class Authentication extends User implements IAuthentication {
         }
         logger.info("Exiting logout method");
 
-        System.out.println(formBundle.getString("logout_message_for_user "));
+        System.out.println(formBundle.getString("logout_message_for_user"));
     }
 
 

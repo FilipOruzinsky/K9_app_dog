@@ -33,7 +33,6 @@ public class UserDataAccess  implements IUserDataAccess {
             List<User> existingUsers = userManagement.readUsersFromJsonFile(filePath);
             existingUsers.addAll(new ArrayList<>(registeredUsers.values())); // Use the provided registeredUsers parameter
             objectMapper.writeValue(new File(filePath), existingUsers);
-            System.out.println(existingUsers);
             System.out.println("Users saved to JSON file."); // Consider replacing this with a log message
             // Log that users have been successfully saved to the JSON file
             logger.info("Users saved to JSON file.");

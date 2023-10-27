@@ -19,13 +19,11 @@ public class Main {
         System.out.println("Welcome to the app");
         Scanner scanner = new Scanner(System.in);
 
-
         Locale currentLocale = selectLanguage(scanner);
         ResourceBundle formBundle = ResourceBundle.getBundle("messages", currentLocale);
 
-        while (true) {
-            menuLoop:
-            while (true) {
+        mainMenuLoop: while (true) {
+            registrationLoop: while (true) {
                 System.out.println(formBundle.getString("menu.choose.option")); // Choose an option
 
                 System.out.println(formBundle.getString("menu.option.register"));
@@ -41,52 +39,62 @@ public class Main {
                         User newUser = userManagement.registerUser();
 
                         if (newUser != null) {
-                            System.out.println(formBundle.getString("registration_message")); // Choose an option
+                            System.out.println(formBundle.getString("registration_message"));
 
                             System.out.println(formBundle.getString("login_offer"));
                             String loginChoice = scanner.nextLine().trim().toLowerCase();
 
                             if (loginChoice.equals("yes") || loginChoice.equals("ja") || loginChoice.equals("qui")) {
-                                System.out.println(formBundle.getString("enter_credentials"));
+                                Authentication authentication = getAuthentication(currentLocale, formBundle);
 
-//TODO pozriet nato lebo nebarz dobre
-                                Authentication authentication = new Authentication();
-                                if (authentication.runWithUserInput(currentLocale)) {
-                                    System.out.println(formBundle.getString("loggedin_message2"));
+                                loggedInMenuLoop: while (true) {
+                                    System.out.println(formBundle.getString("continue_offer"));
+                                    String continueChoice = scanner.nextLine().trim().toLowerCase();
+                                    if (continueChoice.equals("yes") || continueChoice.equals("ja") || continueChoice.equals("qui")) {
+                                        System.out.println(formBundle.getString("user_can_choose"));
 
-
-                                } else System.out.println(formBundle.getString("logginNot_message"));
-                                Authentication authentication1 = new Authentication();
-                                authentication1.runWithUserInput(currentLocale);
-
-
-                            } else {
-                                System.out.println(formBundle.getString("main_menu_return"));
+                                        while (true) {
+                                            System.out.println(formBundle.getString("logout_message"));
+                                            System.out.println(formBundle.getString("exit_message"));
+                                            System.out.println(formBundle.getString("edit_information"));
+                                            System.out.println(formBundle.getString("return_to_menu"));
+                                            String innerChoice = scanner.nextLine().trim();
+                                            switch (innerChoice) {
+                                                case "1":
+                                                    authentication.logout(currentLocale);
+                                                    System.out.println(formBundle.getString("logout_message_for_user"));
+                                                    break;
+                                                case "2":
+                                                    System.out.println(formBundle.getString("exit_app_message_for_user"));
+                                                    System.exit(0);
+                                                    break;
+                                                case "3":
+                                                    String phoneNumber = newUser.getPhoneNumber();
+                                                    UserManagement userManagement1 = new UserManagement();
+                                                    userManagement1.editUserInfoByPhoneNumber(phoneNumber);
+                                                    break;
+                                                case "4":
+                                                    break loggedInMenuLoop; // Return to the logged-in user menu
+                                            }
+                                        }
+                                    } else {
+                                        System.out.println(formBundle.getString("main_menu_return"));
+                                        break registrationLoop; // Return to the registration menu
+                                    }
+                                }
                             }
                         } else {
-                            System.out.println(formBundle.getString("registration_failed"));
+                            System.out.println(formBundle.getString("main_menu_return"));
+                            break registrationLoop; // Return to the registration menu
                         }
                         break;
-                    //TODO dokoncit ostatne polia jazyky
                     case 2:
-                        System.out.println(formBundle.getString("enter_credentials"));
-                        Authentication authentication = new Authentication();
-                        boolean isUserLogin;
-                        do {
-                            isUserLogin = authentication.runWithUserInput(currentLocale);
-                            if (!isUserLogin) {
-                                System.out.println(formBundle.getString("logginNot_message"));
-                            }
-                        } while (!isUserLogin);
-
-
+                        Authentication authentication = getAuthentication(currentLocale, formBundle);
                         UserManagement registerUser1 = new UserManagement();
                         List<User> users = registerUser1.readUsersFromJsonFile("/home/fo/IdeaProjects/k9_app/src/main/java/org/filipOruzinsky/users.json");
-
-                        // Check if the logged-in user is an admin
                         boolean isAdmin = isUserAdmin(users, authentication.getFirstName());
 
-                        while (true) {
+                        loggedInMenuLoop: while (true) {
                             System.out.println(formBundle.getString("continue_offer"));
                             String continueChoice = scanner.nextLine().trim().toLowerCase();
                             if (continueChoice.equals("yes") || continueChoice.equals("ja") || continueChoice.equals("qui")) {
@@ -97,52 +105,46 @@ public class Main {
                                     System.out.println(formBundle.getString("edit_information"));
                                     System.out.println(formBundle.getString("return_to_menu"));
 
-
                                     if (isAdmin) {
-                                        System.out.println("5. Delete user(admin only)");
+                                        System.out.println("5. Delete user (admin only)");
                                     }
-                                    System.out.println(formBundle.getString("user_can_choose"));
-
 
                                     String innerChoice = scanner.nextLine().trim();
                                     switch (innerChoice) {
                                         case "1":
-                                            // User chose to log out
-                                            authentication.logout(currentLocale); // Implement the logout method in UserLogin
+                                            authentication.logout(currentLocale);
                                             System.out.println(formBundle.getString("logout_message_for_user"));
-                                            break; // Exit the current case
+                                            break;
                                         case "2":
-                                            // User chose to exit the whole app
                                             System.out.println(formBundle.getString("exit_app_message_for_user"));
-
                                             System.exit(0);
-                                            break; // Exit the current case
+                                            break;
                                         case "3":
                                             System.out.println(authentication.getPhoneNumber() + "phoneNumber");
                                             if (authentication.getPhoneNumber() != null) {
                                                 UserManagement registerUser2 = new UserManagement(currentLocale);
-                                                String phoneNumber = authentication.getPhoneNumber();
+                                                String phoneNumber = String.valueOf(authentication.getPhoneNumber());
                                                 registerUser2.editUserInfoByPhoneNumber(phoneNumber);
                                             } else {
                                                 System.out.println("login_first_message");
                                             }
                                             break;
                                         case "4":
-                                            break menuLoop;
+                                            break loggedInMenuLoop; // Return to the logged-in user menu
                                         case "5":
                                             if (isAdmin) {
                                                 Admin admin = new Admin();
-                                                if (admin.getFirstName().equals("admin"))
-
+                                                if (admin.getFirstName().equals("admin")) {
                                                     System.out.print("Enter user's phone number to delete: ");
-                                                String phoneNumberToDelete = scanner.nextLine();
-                                                if (admin.deleteUserByPhoneNumber(phoneNumberToDelete)) {
-                                                    System.out.println("User with phone number " + phoneNumberToDelete + " has been deleted.");
+                                                    String phoneNumberToDelete = scanner.nextLine();
+                                                    if (admin.deleteUserByPhoneNumber(phoneNumberToDelete)) {
+                                                        System.out.println("User with phone number " + phoneNumberToDelete + " has been deleted.");
+                                                    } else {
+                                                        System.out.println("User deletion failed.");
+                                                    }
                                                 } else {
-                                                    System.out.println("User deletion failed.");
+                                                    System.out.println("Admin login required to delete users.");
                                                 }
-                                            } else {
-                                                System.out.println("Admin login required to delete users.");
                                             }
                                             break;
                                         default:
@@ -150,41 +152,48 @@ public class Main {
                                             break;
                                     }
                                 }
-                            } else if (continueChoice.equals("no") || continueChoice.equals("nein") || continueChoice.equals("non"))
+                            } else if (continueChoice.equals("no") || continueChoice.equals("nein") || continueChoice.equals("non")) {
                                 while (true) {
                                     System.out.println("leave_offer");
                                     String leaveChoice = scanner.nextLine().trim().toLowerCase();
-                                    if ((leaveChoice.equals("yes") || leaveChoice.equals("ja") || leaveChoice.equals("qui"))) {
-
+                                    if (leaveChoice.equals("yes") || leaveChoice.equals("ja") || leaveChoice.equals("qui")) {
                                         System.out.println(formBundle.getString("exit_message2"));
                                         System.exit(0);
-                                    } else if ((leaveChoice.equals("no") || leaveChoice.equals("nein") || leaveChoice.equals("non"))) {
+                                    } else if (leaveChoice.equals("no") || leaveChoice.equals("nein") || leaveChoice.equals("non")) {
                                         System.out.println(formBundle.getString("return_to_menu2"));
-
-                                        break;
+                                        break loggedInMenuLoop; // Return to the logged-in user menu
                                     } else {
                                         System.out.println(formBundle.getString("invalid_choice2"));
-
-
                                     }
-                                    break;
                                 }
-                            else {
+                            } else {
                                 System.out.println(formBundle.getString("invalid_choice2"));
                             }
-                            break;
                         }
-
+                        break;
                     case 3:
                         System.out.println(formBundle.getString("exit_message2"));
                         System.exit(0);
                     default:
                         System.out.println(formBundle.getString("invalid_choice3"));
+                        break;
                 }
             }
         }
     }
 
+    private static Authentication getAuthentication(Locale currentLocale, ResourceBundle formBundle) throws IOException {
+        System.out.println(formBundle.getString("enter_credentials"));
+        Authentication authentication = new Authentication();
+        boolean isUserLogin;
+        do {
+            isUserLogin = authentication.runWithUserInput(currentLocale);
+            if (!isUserLogin) {
+                System.out.println(formBundle.getString("logginNot_message"));
+            }
+        } while (!isUserLogin);
+        return authentication;
+    }
 
     private static boolean isUserAdmin(List<User> users, String firstName) {
         for (User user : users) {
@@ -195,5 +204,4 @@ public class Main {
         }
         return false;
     }
-
 }
