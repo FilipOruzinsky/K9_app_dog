@@ -5,15 +5,7 @@ import java.util.Scanner;
 
 public class User {
     public String role;
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
+    
     public String getFirstName() {
         return firstName;
     }
@@ -25,25 +17,16 @@ public class User {
         this.firstName = firstName;
     }
 
-    public String getLastName() {
-        return lastName;
-    }
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
-    public String getAddress() {
-        return address;
-    }
 
     public void setAddress(String address) {
         this.address = address;
     }
 
-    public String getState() {
-        return state;
-    }
 
     public void setState(String state) {
         this.state = state;
