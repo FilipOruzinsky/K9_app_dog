@@ -142,6 +142,18 @@ public class Authentication extends User implements IAuthentication {
             return null; // returning null if no user logged in
         }
     }
+    public static Authentication getAuthentication(Locale currentLocale, ResourceBundle formBundle) throws IOException {
+        System.out.println(formBundle.getString("enter_credentials"));
+        Authentication authentication = new Authentication();
+        boolean isUserLogin;
+        do {
+            isUserLogin = authentication.runWithUserInput(currentLocale);
+            if (!isUserLogin) {
+                System.out.println(formBundle.getString("logginNot_message"));
+            }
+        } while (!isUserLogin);
+        return authentication;
+    }
 
 }
 

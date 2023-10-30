@@ -69,5 +69,15 @@ public class Admin extends UserManagement implements IAdmin {
             return false;
         }
     }
+    public static boolean isUserAdmin(List<User> users, String firstName) {
+        for (User user : users) {
+            if ("admin".equals(user.getFirstName()) && "admin".equals(user.getPassword()) && "admin".equals(firstName)) {
+                System.out.println("Admin user found.");
+                return true;
+            }
+        }
+
+        return true;
+    }
 
 }

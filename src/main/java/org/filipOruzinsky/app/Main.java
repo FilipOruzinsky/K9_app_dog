@@ -11,6 +11,8 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
+import static org.filipOruzinsky.admin.Admin.isUserAdmin;
+import static org.filipOruzinsky.service.Authentication.getAuthentication;
 import static org.filipOruzinsky.user.User.selectLanguage;
 
 public class Main {
@@ -188,28 +190,5 @@ public class Main {
             }
         }
     }
-
-    private static Authentication getAuthentication(Locale currentLocale, ResourceBundle formBundle) throws IOException {
-        System.out.println(formBundle.getString("enter_credentials"));
-        Authentication authentication = new Authentication();
-        boolean isUserLogin;
-        do {
-            isUserLogin = authentication.runWithUserInput(currentLocale);
-            if (!isUserLogin) {
-                System.out.println(formBundle.getString("logginNot_message"));
-            }
-        } while (!isUserLogin);
-        return authentication;
-    }
-
-    private static boolean isUserAdmin(List<User> users, String firstName) {
-        for (User user : users) {
-            if ("admin".equals(user.getFirstName()) && "admin".equals(user.getPassword()) && "admin".equals(firstName)) {
-                System.out.println("Admin user found.");
-                return true;
-            }
-        }
-
-        return true;
-    }
+    
 }
