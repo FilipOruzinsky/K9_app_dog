@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.filipOruzinsky.interfaces.IUserDataAccess;
-import org.filipOruzinsky.service.Authentication;
 import org.filipOruzinsky.service.UserManagement;
 import org.filipOruzinsky.user.User;
 
@@ -17,7 +16,7 @@ import java.util.Map;
 public class UserDataAccess  implements IUserDataAccess {
 
     private static final Logger logger = LogManager.getLogger(UserDataAccess.class);
-    public ObjectMapper objectMapper;
+    private ObjectMapper objectMapper;
     public UserDataAccess(){
         objectMapper = new ObjectMapper();
     }

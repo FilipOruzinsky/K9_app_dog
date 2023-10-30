@@ -29,7 +29,6 @@ public class UserManagement extends User implements IUserManagement {
     private static final Logger logger = LogManager.getLogger(UserManagement.class);
 
     private Locale currentLocale;
-     public User loggedInUser;
 
 
     public Map<String, User> registeredUsers;
@@ -76,6 +75,7 @@ public class UserManagement extends User implements IUserManagement {
                 System.out.println(formBundle.getString("password_required"));
             } else if (!security.isValidPassword(password)) {
                 System.out.println(formBundle.getString("password_invalid"));
+                System.out.println(formBundle.getString("password_requirements"));
             } else {
                 break; // Valid password, exit the loop
             }

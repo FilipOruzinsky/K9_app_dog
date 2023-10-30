@@ -2,20 +2,21 @@ package org.filipOruzinsky.service;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.filipOruzinsky.interfaces.ISecurity;
 import org.filipOruzinsky.user.User;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Security {
+public class Security implements ISecurity {
 
     private static final Logger logger = LogManager.getLogger(Security.class);
-
+    @Override
     public boolean isPhoneNumberAlreadyRegistered(String phoneNumber) throws IOException {
         logger.info("Entering isPhoneNumberAlreadyRegistered method for phone number: {}", phoneNumber);
 
-        List<User> existingUsers = new ArrayList<>();
+        List<User> existingUsers;
 
         try {
             UserManagement userManagement = new UserManagement();
@@ -39,7 +40,7 @@ public class Security {
 
         return false;
     }
-
+    @Override
     public boolean isValidPassword(String password) {
         // Check for at least one uppercase letter and two numbers
         int uppercaseCount = 0;

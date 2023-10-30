@@ -22,8 +22,9 @@ public class Main {
         Locale currentLocale = selectLanguage(scanner);
         ResourceBundle formBundle = ResourceBundle.getBundle("messages", currentLocale);
 
-        mainMenuLoop: while (true) {
-            registrationLoop: while (true) {
+        while (true) {
+            registrationLoop:
+            while (true) {
                 System.out.println(formBundle.getString("menu.choose.option")); // Choose an option
 
                 System.out.println(formBundle.getString("menu.option.register"));
@@ -49,7 +50,8 @@ public class Main {
                                 System.out.println(formBundle.getString("loggedin_message2"));
 
 
-                                loggedInMenuLoop: while (true) {
+                                loggedInMenuLoop:
+                                while (true) {
                                     System.out.println(formBundle.getString("continue_offer"));
                                     String continueChoice = scanner.nextLine().trim().toLowerCase();
                                     if (continueChoice.equals("yes") || continueChoice.equals("ja") || continueChoice.equals("qui")) {
@@ -98,7 +100,8 @@ public class Main {
                         System.out.println(formBundle.getString("loggedin_message2"));
 
 
-                        loggedInMenuLoop: while (true) {
+                        loggedInMenuLoop:
+                        while (true) {
                             System.out.println(formBundle.getString("continue_offer"));
                             String continueChoice = scanner.nextLine().trim().toLowerCase();
                             if (continueChoice.equals("yes") || continueChoice.equals("ja") || continueChoice.equals("qui")) {
@@ -206,6 +209,7 @@ public class Main {
                 return true;
             }
         }
-        return false;
+
+        return true;
     }
 }

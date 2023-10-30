@@ -174,7 +174,7 @@
     "firstName": "jako",
     "lastName": "jako",
     "password": "Jako12",
-    "address": "jako",
+    "address": "gelnicka45456",
     "state": "jako",
     "phoneNumber": "jako",
     "dogBreed": "jako"
@@ -1481,16 +1481,6 @@
   },
   {
     "role": null,
-    "firstName": "adam",
-    "lastName": "adam",
-    "password": "Adam12",
-    "address": "adam",
-    "state": "adam",
-    "phoneNumber": "adam",
-    "dogBreed": "adam"
-  },
-  {
-    "role": null,
     "firstName": "izi",
     "lastName": "izi",
     "password": "Izi11",
@@ -1498,5 +1488,9 @@
     "state": "izi",
     "phoneNumber": "izi",
     "dogBreed": "izi"
+  },
+  {
+    "firstName": "admin",
+    "password": "admin"
   }
 ]

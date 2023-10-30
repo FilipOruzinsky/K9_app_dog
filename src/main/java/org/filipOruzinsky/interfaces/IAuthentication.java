@@ -1,12 +1,17 @@
 package org.filipOruzinsky.interfaces;
 
 import java.io.IOException;
+import java.util.Locale;
 
 public interface IAuthentication {
-//    void runWithUserInput() throws IOException;
-//    void performLogin(String username, String password);
-//    void logout();
-//    boolean isValidCredentials (String username, String password) throws IOException;
+    boolean runWithUserInput(Locale currentLocale) throws IOException;
+
+    void performLogin(String username, String password, Locale currentLocale);
+
+    void logout(Locale currentLocale);
+
+    boolean isValidCredentials(String username, String password, Locale currentLocale) throws IOException;
+
     String getPhoneNumber();
 
 }

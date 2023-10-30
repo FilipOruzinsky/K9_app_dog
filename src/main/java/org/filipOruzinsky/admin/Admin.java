@@ -15,6 +15,18 @@ import java.util.List;
 public class Admin extends UserManagement implements IAdmin {
     private static final Logger logger = LogManager.getLogger(Admin.class);
     private ObjectMapper objectMapper = new ObjectMapper();
+    private String firstName ="admin";
+    private String password = "admin";
+
+    @Override
+    public String getFirstName() {
+        return firstName;
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
+    }
 
     @Override
     public boolean deleteUserByPhoneNumber(String phoneNumber) {
