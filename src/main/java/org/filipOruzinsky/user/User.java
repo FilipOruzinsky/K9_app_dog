@@ -4,7 +4,7 @@ import java.util.Locale;
 import java.util.Scanner;
 
 public class User {
-    public String role;
+//    public String role;
     private String firstName;
     private String lastName;
     private String password;
@@ -12,6 +12,19 @@ public class User {
     private String state;
     private String phoneNumber;
     private String dogBreed;
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getState() {
+        return state;
+    }
+
     public String getFirstName() {
         return firstName;
     }
@@ -69,10 +82,9 @@ public class User {
     }
 
 
-    public User(String firstName, String password, String role) {
+    public User(String firstName, String password) {
         this.firstName = firstName;
         this.password = password;
-        this.role = role;
     }
 
     public static Locale selectLanguage(Scanner scanner) {

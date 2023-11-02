@@ -140,7 +140,6 @@ public class UserManagement extends User implements IUserManagement {
             userDataAccess.saveUsersToJsonFile(registeredUsers);
             return  newUser;
         } catch (IOException e) {
-            System.out.println("tusom");
         }
         logger.info("Exiting registerUser method ");
         return  newUser;
