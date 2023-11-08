@@ -17,7 +17,6 @@ public class Authentication extends User implements IAuthentication {
     private static final Logger logger = LogManager.getLogger(Authentication.class);
     String filePath = "/home/fo/IdeaProjects/k9_app/src/main/java/org/filipOruzinsky/users.json";
 
-
     private User loggedInUser;
 
     @Override
