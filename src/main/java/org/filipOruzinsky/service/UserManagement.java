@@ -6,40 +6,74 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.filipOruzinsky.dataAcces.UserDataAccess;
 import org.filipOruzinsky.interfaces.IUserManagement;
+import org.filipOruzinsky.repository.UserRepository;
+import org.filipOruzinsky.repository.UserService;
 import org.filipOruzinsky.user.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
-
+@Service
 public class UserManagement extends User implements IUserManagement {
-
-
-    public UserManagement(Locale currentLocale){
-        this.currentLocale = currentLocale;
-        registeredUsers = new HashMap<>();
-        security = new Security();
-    };
-    public UserManagement(){};
-
-    private Security security;
-
-
-
     private static final Logger logger = LogManager.getLogger(UserManagement.class);
-
-    private Locale currentLocale;
-
-
     public Map<String, User> registeredUsers;
 
 
+   private UserService userService;
+
+    ;
+    private Security security;
+    private Locale currentLocale;
+    @Autowired
+    public UserManagement( UserService userService) {
+        registeredUsers = new HashMap<>();
+        security = new Security();
+        this.userService = userService;
+
+
+    }
+
+
+    public UserManagement() {
+    }
+
+    // TODO getUserByID
+    public static User getUserByName(String filePath, String firstName) throws IOException {
+//        logger.info("Entering getUserByName method with filePath: {} and firstName: {}", filePath, firstName);
+//
+////        UserManagement registerUser = new UserManagement();
+////        List<User> existingUsers = registerUser.readUsersFromJsonFile(filePath);
+//        //skuska
+//        UserRepository getUserFromDB = null;
+//        getUserFromDB.findById(5L);
+//
+//        logger.debug("Number of existing users loaded from file: {}", existingUsers.size());
+//
+//        for (User user : existingUsers) {
+//            if (user.getFirstName().equalsIgnoreCase(firstName)) {
+//                logger.info("Found a user with the matching name: {}", firstName);
+//                logger.info("Exiting getUserByName method (Success)");
+//                return user; // Found a user with the matching name (case-insensitive)
+//            }
+//        }
+//
+//        logger.info("No user found with the name: {}", firstName);
+//
+//        logger.info("Exiting getUserByName method (No user found)");
+
+        return null; // User not found
+    }
+//        logger.info("Exiting registerUser method ");
+//        return  newUser;
+//    }
 
     public User registerUser() throws IOException {
         logger.info("Entering registerUser method");
 
         Scanner scanner = new Scanner(System.in);
-        ResourceBundle formBundle = ResourceBundle.getBundle("messages", currentLocale);
+        ResourceBundle formBundle = ResourceBundle.getBundle("messages");
 
         System.out.println(formBundle.getString("fill_registration_form"));
 
@@ -71,15 +105,16 @@ public class UserManagement extends User implements IUserManagement {
             System.out.println(formBundle.getString("enter_password"));
             password = scanner.nextLine();
 
-            if (password.isEmpty()) {
-                System.out.println(formBundle.getString("password_required"));
-            } else if (!security.isValidPassword(password)) {
-                System.out.println(formBundle.getString("password_invalid"));
-                System.out.println(formBundle.getString("password_requirements"));
-            } else {
+//            if (password.isEmpty()) {
+//                System.out.println(formBundle.getString("password_required"));
+//            } else if (!security.isValidPassword(password)) {
+//                System.out.println(formBundle.getString("password_invalid"));
+//                System.out.println(formBundle.getString("password_requirements"));
+//            } else {
                 break; // Valid password, exit the loop
-            }
+//            }
         }
+
 
 
         String address = "";
@@ -132,41 +167,25 @@ public class UserManagement extends User implements IUserManagement {
         }
 
         User newUser = new User(firstName, lastName, password, address, state, phoneNumber, dogBreed);
-        registeredUsers.put(newUser.getPhoneNumber(), newUser);
+        System.out.println(newUser);
+        System.out.println("ta co");
 
         logger.info("Registration successful: New user created.");
-        try {
-            UserDataAccess userDataAccess = new UserDataAccess();
-            userDataAccess.saveUsersToJsonFile(registeredUsers);
-            return  newUser;
-        } catch (IOException e) {
-        }
-        logger.info("Exiting registerUser method ");
-        return  newUser;
+//        try {
+//            UserDataAccess userDataAccess = new UserDataAccess();
+//            userDataAccess.
+//            userDataAccess.saveUsersToJsonFile(registeredUsers);
+        //nove
+        userService.saveUserToDB(newUser);
+        logger.info(newUser.toString());
+        System.out.println("tu som");
+
+
+        return newUser;
+//        } catch (IOException e) {
     }
 
-    public static User getUserByName(String filePath, String firstName) throws IOException {
-        logger.info("Entering getUserByName method with filePath: {} and firstName: {}", filePath, firstName);
-
-        UserManagement registerUser = new UserManagement();
-        List<User> existingUsers = registerUser.readUsersFromJsonFile(filePath);
-
-        logger.debug("Number of existing users loaded from file: {}", existingUsers.size());
-
-        for (User user : existingUsers) {
-            if (user.getFirstName().equalsIgnoreCase(firstName)) {
-                logger.info("Found a user with the matching name: {}", firstName);
-                logger.info("Exiting getUserByName method (Success)");
-                return user; // Found a user with the matching name (case-insensitive)
-            }
-        }
-
-        logger.info("No user found with the name: {}", firstName);
-
-        logger.info("Exiting getUserByName method (No user found)");
-
-        return null; // User not found
-    }
+    //TODO findAll
     public List<User> readUsersFromJsonFile(String filePath) throws IOException {
         logger.info("Entering readUsersFromJsonFile method for filePath: {}", filePath);
 
@@ -176,7 +195,8 @@ public class UserManagement extends User implements IUserManagement {
         List<User> users;
 
         try {
-            users = objectMapper1.readValue(file, new TypeReference<List<User>>() {});
+            users = objectMapper1.readValue(file, new TypeReference<List<User>>() {
+            });
             logger.info("Users successfully read from JSON file.");
         } catch (IOException e) {
             logger.error("Error reading users from JSON file: {}", e.getMessage());
@@ -187,6 +207,7 @@ public class UserManagement extends User implements IUserManagement {
 
         return users;
     }
+
     public void editUserInfoByPhoneNumber(String phoneNumber) {
         logger.info("Entering editUserInfoByPhoneNumber method for phone number: {}", phoneNumber);
 
@@ -198,7 +219,7 @@ public class UserManagement extends User implements IUserManagement {
 
             // Check if the phone number is already registered
             Security security = new Security();
-            if (!security.isPhoneNumberAlreadyRegistered( phoneNumber)) {
+            if (!security.isPhoneNumberAlreadyRegistered(phoneNumber)) {
                 System.out.println("User with phone number " + phoneNumber + " not found.");
                 // Log that the user with the given phone number was not found
                 logger.info("User with phone number {} not found.", phoneNumber);
@@ -208,7 +229,7 @@ public class UserManagement extends User implements IUserManagement {
             // Find the user by phone number
             User userToEdit = null;
             for (User user : existingUsers) {
-                if (user != null && user.getPhoneNumber() != null && user.getPhoneNumber().equals(phoneNumber)){
+                if (user != null && user.getPhoneNumber() != null && user.getPhoneNumber().equals(phoneNumber)) {
                     userToEdit = user;
                     break;
                 }

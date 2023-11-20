@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.filipOruzinsky.interfaces.IUserDataAccess;
+import org.filipOruzinsky.repository.UserRepository;
 import org.filipOruzinsky.service.UserManagement;
 import org.filipOruzinsky.user.User;
 

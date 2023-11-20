@@ -6,7 +6,6 @@ import org.filipOruzinsky.interfaces.ISecurity;
 import org.filipOruzinsky.user.User;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Security implements ISecurity {

@@ -4,6 +4,9 @@ import org.filipOruzinsky.admin.Admin;
 import org.filipOruzinsky.service.Authentication;
 import org.filipOruzinsky.service.UserManagement;
 import org.filipOruzinsky.user.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.io.IOException;
 import java.util.List;
@@ -15,8 +18,13 @@ import static org.filipOruzinsky.admin.Admin.isUserAdmin;
 import static org.filipOruzinsky.service.Authentication.getAuthentication;
 import static org.filipOruzinsky.user.User.selectLanguage;
 
+@SpringBootApplication
 public class Main {
+
+
     public static void main(String[] args) throws IOException {
+        SpringApplication.run(Main.class, args);
+
 
         System.out.println("Welcome to the app");
         Scanner scanner = new Scanner(System.in);
@@ -38,7 +46,8 @@ public class Main {
 
                 switch (choice) {
                     case 1:
-                        UserManagement userManagement = new UserManagement(currentLocale);
+
+                        UserManagement userManagement = new UserManagement();
                         User newUser = userManagement.registerUser();
 
                         if (newUser != null) {
@@ -131,7 +140,7 @@ public class Main {
                                         case "3":
                                             System.out.println(authentication.getPhoneNumber() + "phoneNumber");
                                             if (authentication.getPhoneNumber() != null) {
-                                                UserManagement registerUser2 = new UserManagement(currentLocale);
+                                                UserManagement registerUser2 = new UserManagement();
                                                 String phoneNumber = String.valueOf(authentication.getPhoneNumber());
                                                 registerUser2.editUserInfoByPhoneNumber(phoneNumber);
                                             } else {
